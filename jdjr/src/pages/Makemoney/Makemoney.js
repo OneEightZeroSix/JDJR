@@ -6,9 +6,6 @@ import { Link } from "react-router-dom";
 import './Makemoney.scss';
 
 
-
-
-
 class Makemoney extends Component {
     constructor(props){
         super(props);
