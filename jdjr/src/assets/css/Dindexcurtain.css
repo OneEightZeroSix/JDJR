@@ -1,0 +1,89 @@
+html {
+    font-size: 20px;
+    font-size: 5.33333vw
+}
+
+@media screen and (max-width:320px) {
+    html {
+        font-size: 17.06667px
+    }
+}
+
+@media screen and (min-width:540px) {
+    html {
+        font-size: 28.8px
+    }
+}
+
+.common-box-content-vertical-horizontal-center {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    box-sizing: border-box;
+    -webkit-box-pack: center;
+    -moz-justify-content: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -moz-align-items: center;
+    -webkit-align-items: center;
+    align-items: center
+}
+
+.common-box-center {
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 30px;
+    max-width: 640px;
+    min-width: 320px;
+    box-sizing: border-box
+}
+
+.index-curtain {
+    background-color: rgba(0, 0, 0, .7);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    box-sizing: border-box
+}
+
+.index-curtain img {
+    vertical-align: middle
+}
+
+.index-curtain-wrapper {
+    width: 100%;
+    background-color: hsla(0, 0%, 100%, 0);
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box
+}
+
+.index-curtain-header {
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box
+}
+
+.index-curtain-body {
+    width: 100%;
+    box-sizing: border-box
+}
+
+.index-curtain-header-close-btn {
+    margin: 20px;
+    float: right;
+    width: 26px;
+    height: 26px;
+    background: no-repeat url(//st.360buyimg.com/m/images/index/jd-sprites.png) -206px 1px
+}
+
+.index-curtain-img-block {
+    width: 100%;
+    display: block;
+    box-sizing: border-box
+}

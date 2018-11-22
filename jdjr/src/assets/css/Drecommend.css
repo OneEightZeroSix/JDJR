@@ -1,0 +1,324 @@
+@charset "UTF-8";
+
+.mod_good_decoration_circle_price {
+    font-family: arial
+}
+
+.mod_recommend_v2 .list,
+.mod_recommend_v2 .list .flex_wrap {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    overflow: hidden
+}
+
+.mod_recommend_v2 .list .flex_wrap .price_info {
+    display: block;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1
+}
+
+.mod_recommend_v2 .list .cover .img_tag {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.mod_recommend_v2 .list .name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical
+}
+
+.mod_recommend_v2 {
+    position: relative;
+    overflow: hidden;
+    background: #fff
+}
+
+.mod_recommend_v2 .title {
+    margin: 11px 0 11px 15px;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+    color: #333
+}
+
+.mod_recommend_v2 .list {
+    padding-right: 1px;
+    overflow: hidden;
+    background: #f7f7f7;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap
+}
+
+.mod_recommend_v2 .list li {
+    background: #fff;
+    position: relative;
+    float: left;
+    width: 50%;
+    margin-bottom: 1px;
+    padding: 15px 15px 0;
+    box-sizing: border-box
+}
+
+.mod_recommend_v2 .list li:nth-child(2n) {
+    float: right;
+    margin-right: -1px
+}
+
+.mod_recommend_v2 .list li.ad_li::after {
+    position: absolute;
+    content: "";
+    width: 1px;
+    height: 1px;
+    background: #999;
+    opacity: .5;
+    filter: alpha(opacity=50);
+    right: 2px;
+    bottom: 2px
+}
+
+.mod_recommend_v2 .list .cover {
+    position: relative;
+    overflow: hidden;
+    padding-top: 100%;
+    height: 0
+}
+
+.mod_recommend_v2 .list .cover img {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0
+}
+
+.mod_recommend_v2 .list .cover .img_tag {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 25px;
+    padding: 0 10px;
+    line-height: 25px;
+    text-align: center;
+    font-size: 12px;
+    color: #fff;
+    background-color: rgba(228, 57, 60, .7)
+}
+
+.mod_recommend_v2 .list .cover .prom {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: 0;
+    bottom: 0;
+    z-index: 30;
+    background-size: 30px 30px
+}
+
+.mod_recommend_v2 .list .name {
+    margin: 12px 0 4px;
+    font-size: 12px;
+    color: #333;
+    line-height: 18px;
+    height: 36px
+}
+
+.mod_recommend_v2 .list .flex_wrap .price_info {
+    width: 100%;
+    overflow: hidden
+}
+
+.mod_recommend_v2 .list .flex_wrap .price_info .mod_sign_tip {
+    margin-top: -4px
+}
+
+.mod_recommend_v2 .list .flex_wrap .price {
+    display: inline-block;
+    font-size: 12px;
+    color: #e93b3d;
+    margin-right: 3px;
+    line-height: 20px
+}
+
+.mod_recommend_v2 .list .flex_wrap .price em {
+    font-size: 16px
+}
+
+.mod_recommend_v2 .list .flex_wrap .single {
+    font-size: 12px;
+    color: #999;
+    text-decoration: line-through;
+    line-height: 18px
+}
+
+.mod_recommend_v2 .list .flex_wrap .buy {
+    width: 30px;
+    height: 24px;
+    position: relative
+}
+
+.mod_recommend_v2 .list .flex_wrap .buy.rec_icon::after {
+    content: "• • •";
+    color: #ccc;
+    overflow: hidden;
+    z-index: 1;
+    font-size: .75rem;
+    line-height: 20px;
+    position: absolute;
+    right: 0
+}
+
+.mod_recommend_v2 .list .flex_wrap .buy.rec_cart {
+    width: 30px;
+    height: 24px;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAOVBMVEUAAADqPD7qOz/vP0DqOz3rPD7qOz7qPD3pOz7qPD7qOz7qPT/qOz3qPD3pPD3rPT/tO0H/RkbpOz36jkSnAAAAEnRSTlMA5Ekd3V2eqphzYjzy0Lx+Kwtw+iurAAAAbElEQVQoz63QSw7DIAwA0XFISz79+v6HbSW28WyS2VkWPAHnyn/N1xvSLTtSy8Cas2icu5frPvCqdeBVu+NfDH+C4QsYvvnLPyD4Awx/geGrf3sDwd8g+AJU+Nx3rmuKmA6nUWRGMclaLj/fD/9IGxUTc5duAAAAAElFTkSuQmCC) no-repeat 50%;
+    background-size: 15px
+}
+
+.mod_recommend_v2 .list .flex_wrap .price_plus,
+.mod_recommend_v2 .list .flex_wrap .price_sams {
+    display: inline-block;
+    font-family: arial;
+    margin-right: 5px;
+    font-size: 12px;
+    line-height: 18px;
+    color: #333
+}
+
+.mod_recommend_v2 .list .flex_wrap .price_plus i,
+.mod_recommend_v2 .list .flex_wrap .price_sams i {
+    margin-left: 4px
+}
+
+.mod_good_decoration {
+    z-index: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0
+}
+
+.mod_good_decoration_circle {
+    position: absolute;
+    right: 6px;
+    bottom: 5px;
+    overflow: hidden;
+    width: 59px;
+    height: 62px;
+    text-align: center;
+    line-height: 1.3;
+    color: #eb339f;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAB8CAMAAACL4rRFAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAABFUExURUxpcf5bpP5bpP5bpP5bpP5bpP5bpP5bpP5bpP5bpP5bpP5bpP5bpP/////F3/+s0v/2+/6Sw//c7P54tP5prP/o8/5fp/ClwkcAAAAMdFJOUwAh7jzcW4r5DqbDcrA0X0UAAARCSURBVGjexVvZ2pwgDHVBAZXV5f0ftdN/BMFRx4Vkzk0v2m9OsxAwOcmya2BlzUlR0O4NWhDC65JlgCjrpui2UTR1CUHJqoZ2x6BNldjq8iunY05nM6uL7jyKOonJOafdNVCePydd/+jQGyXtqLUQQuvRSmX6Yf2PnhGzekVp5Ci2MEqzon7g6iqKaa+sOIJVfRTj6qZ/m9DOL5yOObS5uePpKsikXmpxDloGJtPLBjMekoorCIn5tQjnZHHvNdI/4sXV5IqjS59Lk9LiOrSavKPPl63K/2fNKO5hNP43zga4XUwV97EY3J5i9SWit+IJrE+t+gqr0eIZtDnP6z2sxHOos7yeVYoUkOfiW7pkSsP64nWJdXSO8iIx68JL9+sGI0k9HPu52K2THIB14W2+FCcl0kIdppULrBGpYY7CO9/qvU5Oq+d6RfZdPFmRHnbaczMrYAIbhZeynVLcCxjMbubrfHq/nKYRiHac3ZxvHlkloKC2Du9s7KDBaPWwYS6HKE+bxSo0l1HQfIqyin3cshKUVn4kM0Ew1plL1wVKAtPK1QOWQ6dxlMwkTigjoGGipJp9bMFpbXQhzD4W8Ii8XADXxXWFpOEj1SLQ2uDx2qL52HmZL6E1KLRmCS5BqRVhxfgfXIYXWh9c5jJqEjiYXH2sUK6B+Drg7u1mkGiNu+s5WrFYCgZxHwMSifadyoU7PxaJ1roT9KYdkWjH9wlyF4FGotWOlv6G9v2nwMKPaYtf0mpsWvKblPrFuaWuOOJWqcJdBRKVlriLD+sGko62+sHFx92jBvear90TbkCi7f23JuoJGnzfBDOV/XXrPkYMbiK7nOoRM4oHH5ojXmir4LNaotWouRNXoQVXuYr813DssLzcRw2xBqk+2rgx1SLlsopb6HNjCvrO1cOq6YjTR1DraR9Ks2bV+1v6FwbD2PZzCGThjY1mMgzeXLU1twbvn9vNOd9sLlhP2Y356u0Rn4J1MfmYthHIrJK7ipMSbI76essM+wNrDjU19oHdnBuDjVK92qQ6nM2nPkWOlR8rEQYLwkrYF93FMAJ4+ECv5cQI6XgXFVF1QhfWj2lz+JuWxymI0thrh7PKJafSSpFXXj50QqfFU2mXlrCeUqV5YaV6VCcXKdxlDd6DAAdKx7OKw/qx4jAwtbigr6SPRIdBVLvmioq1JA/UpIGE9VQyhXWyCaTJ+qZ/O3Jdd9/SO8TWdLdlwp9q7MnYy6Tk7opBpD3v1XiFlLbZbbCaxqL3AzG47NMp/LO8Xi0z9EbZT7N1pHXvEqxw5BurG6tXvDVT+LekylKAtc2KNiheer3I0KQhnTeBSPDLkzN2lLGdr5im3grKW7+co2bKfr2jUucZAOYVkmGUynxsp3SkBVu9aveXccoMENsLSU0LumPmvwvDTRhe5RkwWFw8CG/LDAFVuEEHb2XkY1TGP2Obl1dRGRPjH1dfJ4/w78AoAAAAAElFTkSuQmCC);
+    background-size: 59px;
+    z-index: 99
+}
+
+.mod_good_decoration_circle_text {
+    margin-top: 12px;
+    font-size: 10px
+}
+
+.mod_good_decoration_circle_price {
+    font-size: 12px;
+    font-weight: 700
+}
+
+.mod_good_decoration_circle_date {
+    font-size: 7px
+}
+
+.mod_good_decoration_belt {
+    background: url(//wq.360buyimg.com/fd/h5/wxsq_dev/gb/images/good_belt_d6f6462c.png) repeat-x 0 100%;
+    background-size: 370px;
+    padding-top: 3px;
+    position: absolute;
+    bottom: 0;
+    width: 100%
+}
+
+.mod_good_decoration_belt_text {
+    box-sizing: border-box;
+    padding: .2rem .5rem 0;
+    height: 1.05rem;
+    line-height: 1.05rem;
+    font-size: .5rem;
+    color: #fff;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.mod_good_decoration_belt_text.type_tiny {
+    padding: .45rem .1rem 0;
+    font-size: .35rem
+}
+
+.mod_good_decoration.type_rem {
+    left: auto;
+    width: 100%;
+    height: 2.4rem;
+    background-size: 100% 100%;
+    padding-top: 1.1rem;
+    box-sizing: border-box
+}
+
+.mod_good_decoration.type_rem .mod_good_decoration_circle {
+    right: -.05rem;
+    top: -.2rem;
+    width: 2.7rem;
+    height: 2.7rem;
+    background: none;
+    -webkit-transform: scale(.89);
+    transform: scale(.89);
+    -webkit-transform-origin: 70% center;
+    transform-origin: 70% center
+}
+
+.mod_good_decoration.type_rem .mod_good_decoration_circle_text {
+    margin-top: .65rem;
+    font-size: .4rem
+}
+
+.mod_good_decoration.type_rem .mod_good_decoration_circle_price {
+    font-size: .55rem
+}
+
+.mod_good_decoration.type_rem .mod_good_decoration_circle_date {
+    font-size: .3rem;
+    -webkit-transform: scale(.8);
+    transform: scale(.8);
+    -webkit-transform-origin: center center;
+    transform-origin: center center
+}
+
+.mod_good_decoration.type_rem .mod_good_decoration_belt {
+    background: none;
+    padding-top: 0
+}
+
+html {
+    font-size: 20px;
+    font-size: 5.33333vw
+}
+
+@media screen and (max-width:320px) {
+    html {
+        font-size: 17.06667px
+    }
+}
+
+@media screen and (min-width:540px) {
+    html {
+        font-size: 28.8px
+    }
+}
