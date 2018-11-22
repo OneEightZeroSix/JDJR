@@ -31,6 +31,7 @@ import Makemoney from './pages/Makemoney/Makemoney.js';
 import Lendmoney from './pages/Lendmoney/Lendmoney.js';
 import Savemoney from './pages/Savemoney/Savemoney.js';
 import Member from './pages/Member/Member.js';
+import ConfrimId from './pages/ConfrimId/ConfrimId.js';
 // import Detail from './pages/Detail/Detail.jsx';
 
 
@@ -92,16 +93,16 @@ ReactDOM.render(
     <Provider store={store}>
         <Router>
                 <div>
-                    <div>
+                    {/* <div> */}
                         <Route path="/" exact render={()=><Redirect to="/home/"/>}/>
                         <Route path="/home/" component={Home} />
                         <Route path="/makemoney/" component={Makemoney} />
                         <Route path="/lendmoney/" component={Lendmoney} />
                         <Route path="/savemoney/" component={Savemoney} />
                         <Route path="/member/" component={Member} />
-
-                    </div>
-                    <div>
+                        <Route path="/confrimid/" component={ConfrimId} />
+                    {/* </div> */}
+                    {/* <div> */}
                         {/* 分类界面 */}
                         <Route path="/classify/" component={Classify} />
                         {/* 我的界面 */}
@@ -121,7 +122,7 @@ ReactDOM.render(
                         {/* 种类界面 */}
                         <Route path="/sort/" component={Sort} /> 
                         {/* <Route path="/detail/:id/:song_id" component={Detail} /> */}
-                    </div>
+                    {/* </div> */}
                 </div>
         </Router>
     </Provider>

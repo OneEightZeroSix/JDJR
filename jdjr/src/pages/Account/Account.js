@@ -30,6 +30,17 @@ class Register extends Component {
         this.props.history.push("mine");
     }
     // 更改密码
+    newpass(){
+        var yhm=cookie.getCookie("yonghuming")||[];
+        if(yhm.length==0){
+            alert("您还未登入");
+            this.props.history.push("login");
+
+        }else{
+            this.props.history.push("newpass");
+        }
+    }
+    //更改支付密码
     newpay(){
         var yhm=cookie.getCookie("yonghuming")||[];
         if(yhm.length==0){
@@ -40,17 +51,7 @@ class Register extends Component {
             this.props.history.push("newpay");
         }
     }
-    // 更改支付密码
-    newpass(){
-        var yhm=cookie.getCookie("yonghuming")||[];
-        if(yhm.length==0){
-            alert("您还未登入");
-            this.props.history.push("login");
-
-        }else{
-            this.props.history.push("newpay");
-        }
-    }
+    
     tuichu(){
         cookie.setCookie("yonghuming","");
         this.props.history.push("login");

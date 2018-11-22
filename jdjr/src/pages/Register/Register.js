@@ -73,7 +73,7 @@ class Login extends Component {
     }
     render() {
         return (
-            <div >
+            <div className="dlogin" >
                <header id="header" style={{display:"block"}}>
                     <Link to={"/login"} className="icon icon-goback"></Link>
                     <span className="txt-header">京东注册</span>
