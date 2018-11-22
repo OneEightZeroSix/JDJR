@@ -1,9 +1,17 @@
 .uploadPic{
 
-.pic{
+.uploadArea{
   width:100%;
-  height:50px;
-  background-color:green;
+  height:150px;
+  /* overflow:hidden; */
+}
+
+.uploadArea .decoration{
+  width:100%;
+  height:20px;
+  line-height:20px;
+  font-size:16px;
+  margin:20px 0;
 }
 
 .upheader{

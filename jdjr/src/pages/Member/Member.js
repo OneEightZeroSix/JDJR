@@ -115,11 +115,27 @@ class Member extends Component {
                                             <img src="https://img12.360buyimg.com/jrpmobile/jfs/t9832/294/292213011/2420/30888b3d/59cb61c9Nc2bbc057.png?width=70&amp;height=70" className="test-lazyload" alt=""/>
                                         </div>
                                     </div>
-                                    <div className="info"><span className="name" style={{color:"",lineHeight:"auto"}}>帮助中心</span></div>
+                                    <div className="info"><span className="name" style={{color:"",lineHeight:"auto"}}>帮助中心</span>
+                                    </div>
                                     <div className="benifit" id="qyy-benifit" style={{color:""}}></div>
                                 </div>
                             </div>
 
+                            <div className="section section-4  hasTopPadding hasFloorBottom" style={{background:"#FFFFFF"}}>
+                                <div className="row classify singleTitle" >
+                                    <div className="icon">
+                                        <div className="img-wrap bg-none min-height-0">
+                                            <img src="https://img12.360buyimg.com/jrpmobile/jfs/t9832/294/292213011/2420/30888b3d/59cb61c9Nc2bbc057.png?width=70&amp;height=70" className="test-lazyload" alt=""/>
+                                        </div>
+                                    </div>
+                                    <div className="info">
+                                        <div style={{marginTop:"8px"}}>
+                                            <a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=dUdMTUFBQkZNQk01BARbFhoY" style={{textDecoration:"none"}}><img src="http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_02.png" style={{verticalAlign:"milddle"}}/></a>
+                                        </div>
+                                    </div>
+                                    <div className="benifit" id="qyy-benifit" style={{color:""}}></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
