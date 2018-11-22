@@ -770,15 +770,16 @@ $feedback-img:url("../img/feedback-green.png");*/
   background: none;
   display: inline-block;
   margin: 0;
-  padding-top: 3.0rem;
-  padding-bottom: 1.8rem;
+  padding-top: 1.0rem;
+  padding-bottom: 0.8rem;
   width: 100%;
   text-align: left;
   height: 1.8rem;
   color: #252525;
   font-size: 1.0rem;
   line-height: 1.8rem;
-  position: absolute; }
+  position: absolute;
+  top:3rem; }
 
 .anim-input-txt {
   padding-top: 3.5rem; }
