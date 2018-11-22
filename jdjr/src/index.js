@@ -11,12 +11,13 @@ import {createStore} from 'redux';
 import * as serviceWorker from './serviceWorker';
 
 //页面组件 
+import ConfrimId from './pages/ConfrimId/ConfrimId.js';
 import Home from './pages/Home/Home.js';
 import Makemoney from './pages/Makemoney/Makemoney.js';
 import Lendmoney from './pages/Lendmoney/Lendmoney.js';
 import Savemoney from './pages/Savemoney/Savemoney.js';
 import Member from './pages/Member/Member.js';
-import ConfrimId from './pages/ConfrimId/ConfrimId.js';
+import UploadPic from './pages/UploadPic/UploadPic.js';
 
 
 
@@ -83,7 +84,8 @@ ReactDOM.render(
                 <Route path="/savemoney/" component={Savemoney} />
                 <Route path="/member/" component={Member} />
                 <Route path="/confrimid/" component={ConfrimId} />
-
+                <Route path="/uploadpic/" component={UploadPic} />
+                
 
             </div>
         </Router>

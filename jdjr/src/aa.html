@@ -6,22 +6,77 @@
 </head>
 
 <body>
-    <div className="nameAndId col-bgw">
-        <div className="ui-form-item pos-re ui-textfield" id="cot-username">
-            <span className="anim-label" data-msg="真实姓名" data-error="真实姓名错误">真实姓名</span>
-            <input className=" debit anim-input" type="text" id="username" autocomplete="on" data-reg="\S" data-info="请输入姓名">
-            <div id="userNameCan" className="rightCancel pos-ab dn"><img className="pos-ab" src="//mjr.jd.com/spe/smrz/img/clear.png"></div> <!--一键清除内容图标-->
-        </div>
-        <div className="border-1px border-top  ui-form-item   pos-re ui-textfield" id="cot-usercardid">
-            <span className="anim-label " data-msg="身份证号" data-error="身份证号格式不对">身份证号</span>
-            <input className=" debit anim-input" id="userid" autocomplete="on" maxlength="18" data-reg="^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$" data-info="身份证号格式不对">
-           <!--一键清除内容图标-->
-            <div className="pr pct30 h100p fr">
-                <span className="switch-type">切换类型</span>
-            </div>
-            <input type="hidden" id="hid_idType" value="1">
-        </div>
-    </div>
+    
+        import { Upload, Icon, Modal } from 'antd';
+
+        class PicturesWall extends React.Component {
+          state = {
+            previewVisible: false,
+            previewImage: '',
+            fileList: [{
+              uid: '-1',
+              name: 'xxx.png',
+              status: 'done',
+              url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+            }],
+          };
+
+          handleCancel = () => this.setState({ previewVisible: false })
+
+          handlePreview = (file) => {
+            this.setState({
+              previewImage: file.url || file.thumbUrl,
+              previewVisible: true,
+            });
+          }
+
+          handleChange = ({ fileList }) => this.setState({ fileList })
+
+          render() {
+            const { previewVisible, previewImage, fileList } = this.state;
+            const uploadButton = (
+              <div>
+                <Icon type="plus" />
+                <div className="ant-upload-text">Upload</div>
+              </div>
+            );
+            return (
+              <div className="clearfix">
+                <Upload
+                  action="//jsonplaceholder.typicode.com/posts/"
+                  listType="picture-card"
+                  fileList={fileList}
+                  onPreview={this.handlePreview}
+                  onChange={this.handleChange}
+                >
+                  {fileList.length >= 3 ? null : uploadButton}
+                </Upload>
+                <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
+                  <img alt="example" style={{ width: '100%' }} src={previewImage} />
+                </Modal>
+              </div>
+            );
+          }
+        }
+
+ReactDOM.render(<PicturesWall />, mountNode);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 
 </html>

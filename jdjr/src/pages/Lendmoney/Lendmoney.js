@@ -36,6 +36,11 @@ class Lendmoney extends Component {
     })
   }
 
+  /*跳转到验证身份页面*/
+  goConfrimId(){
+      this.props.history.push('/confrimid/');
+  }
+
   render() {
     return (
       
@@ -68,7 +73,7 @@ class Lendmoney extends Component {
             <div className="jdGold"><img src="https://m.jr.jd.com/vip/borrowMoney/widget/jdGold/i/goldCard.png" />
                 <p className="txt1">最高可借</p>
                 <p className="txt2"><span>¥</span>300,000</p>
-                <p clstag="pageclick|keycount|borrowmoney20180105|jintiao" className="txt3">申请开通</p>
+                <p clstag="pageclick|keycount|borrowmoney20180105|jintiao" className="txt3" onClick={this.goConfrimId.bind(this)}>申请开通</p>
             </div>
           </section>
 

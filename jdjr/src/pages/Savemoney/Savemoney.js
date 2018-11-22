@@ -170,7 +170,7 @@ class Savemoney extends Component {
                                     {(()=>{
                                         return this.state.life.map((item,index)=>{
                                             return (
-                                                <div className=" item"  style={{width:"0.21%"}}>
+                                                <div key={index} className=" item"  style={{width:"0.21%"}}>
                                                     <div className="img-wrap bg-none min-height-0"><img src={item.src} className="icon test-lazyload" alt="" />
                                                     </div>
                                                     <span className="title" style={{color:" "}}>{item.title}</span>
