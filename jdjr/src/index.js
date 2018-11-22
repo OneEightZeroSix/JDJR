@@ -20,6 +20,8 @@ import Member from './pages/Member/Member.js';
 
 
 import $ from 'jquery';
+
+
 //创建仓库
 const store = createStore(function(state={
     tab:0,
