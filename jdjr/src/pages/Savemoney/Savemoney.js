@@ -117,6 +117,9 @@ class Savemoney extends Component {
                     </div>
                 </div>
 
+
+
+                
                 <div className="youhui">
                     <ul className="clearfix">
                         <li>
@@ -170,7 +173,7 @@ class Savemoney extends Component {
                                                 <div className=" item"  style={{width:"0.21%"}}>
                                                     <div className="img-wrap bg-none min-height-0"><img src={item.src} className="icon test-lazyload" alt="" />
                                                     </div>
-                                                    <span className="title" style={{color:" "}}>{item.src}</span>
+                                                    <span className="title" style={{color:" "}}>{item.title}</span>
                                                     <span className="desc" style={{color:" "}}></span>
                                                 </div>
                                             )
