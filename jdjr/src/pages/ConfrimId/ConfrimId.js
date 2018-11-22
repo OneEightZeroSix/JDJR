@@ -11,6 +11,7 @@ class ConfrimId extends Component {
             genderClass:false,
             btnClass:false,
             switchClass:false,
+            cur:1,
             confrimType:[{
                 title:"外籍护照"
             },{
@@ -20,7 +21,9 @@ class ConfrimId extends Component {
             },{
                 title:"回乡证"
             }],
-            cur:1
+            uname:this.refs.nameInput.value,
+            id:this.refs.idInput.value
+            
         }
     }
 
@@ -54,8 +57,8 @@ class ConfrimId extends Component {
         this.setState({
             btnClass:true
         })
-        let len= this.refs.nameInput.length;
-        console.log(len);
+        let a= this.refs.nameInput.value;
+        console.log(a);
     }
 
 
