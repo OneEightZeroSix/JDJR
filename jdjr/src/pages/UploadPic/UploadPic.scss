@@ -1903,7 +1903,7 @@ $feedback-img:url("../img/feedback-green.png");*/
   z-index: 2; }
 
 .layer {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.8);
   position: fixed;
   left: 0;
   top: 0;
@@ -1914,8 +1914,8 @@ $feedback-img:url("../img/feedback-green.png");*/
   .layer .select-box {
     position: absolute;
     left: 0;
-    top: 100%;
-    padding: 0 1.8rem 1.8rem 1.8rem;
+    top: 60%;
+    padding: 0 1.0rem 1.0rem 1.0rem;
     text-align: center;
     width: 100%;
     -webkit-box-sizing: border-box;
