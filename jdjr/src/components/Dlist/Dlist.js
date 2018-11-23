@@ -1,8 +1,9 @@
 import React, {
     Component
 } from 'react'
-import $ from  'jquery';
 
+import { connect} from 'react-redux';
+import $ from  'jquery';
 import '../../assets/css/Dindexcurtain.css';
 import '../../assets/css/Ddex.css';
 import './Dlist.css';
@@ -13,6 +14,7 @@ export class Dtop extends Component {
 
         this.state = {
                 cur:0,
+                lie:"",
                 height:"100%",
                 lei:[{
                         name:"热门推荐"
@@ -142,16 +144,16 @@ export class Dtop extends Component {
             {cur:idx}
         );
         
-        console.log(branchList);
-        console.log(branchList.scrollTop);
+        // console.log(branchList);
+        // console.log(branchList.scrollTop);
         // branchList.scrollTop=0;
         // 减速运动
         
         var e=e.target.parentElement.parentElement;
-        console.log(e.scrollTop);
+        // console.log(e.scrollTop);
         
         var timer = setInterval(() => {
-                console.log(666);
+                // console.log(666);
                 var currentTop = e.scrollTop;
                 var speed = Math.floor((46*idx) / 10);
                 currentTop += speed;
@@ -165,17 +167,7 @@ export class Dtop extends Component {
     }
     //数据请求
     loadMore(){
-        $.ajax({
-            type: "GET",
-            url: "/json/Dlist.json",
-            success:(response)=>{
-                console.log(this);
-                this.setState({
-                    lan:this.state.lan.concat(response.data.lan)
-                })
-            }
-        })
-        /*React.axios.get("/json/Dlist.json", {
+        React.axios.get("/json/Dlist.json", {
              
         }).then((response) => {
                 console.log(response);
@@ -184,9 +176,29 @@ export class Dtop extends Component {
                 })
         }).catch(function (error) {
             console.log(error);
-        });*/
+        });
         
+        // $.ajax({
+        //         type: "GET",
+        //         url: "/json/Dlist.json",
+        //         success:(response)=>{
+        //             console.log(this);
+        //             this.setState({
+        //                 lan:this.state.lan.concat(response.data.lan)
+        //             })
+        //         }
+        // })
     }
+    //点击跳转列表列
+    list(){
+        if(this.state.cur==1){
+                this.props.fenlei("shouji");
+        }
+        window.location.href="http://localhost:3000/#/sort";
+    }
+
+
+
     render() {
         return ( 
             <div id="categoryBody" className="category-viewport category-categoryNewUi">
@@ -241,7 +253,7 @@ export class Dtop extends Component {
                                                                         {(()=>{
                                                                                 return qie.map((item,idx)=>{
                                                                                         return(
-                                                                                                <li key={idx}>
+                                                                                                <li key={idx} onClick={this.list.bind(this)}>
                                                                                                         <a className="J_ping" report-eventparam="65002_1971_64986_null" report-eventid="MCategory_3rd"
                                                                                                         report-eventlevel="2" id="branch_92"  >
                                                                                                                 <img src={item[0].url} id="Imglazyload178"/>
@@ -280,4 +292,22 @@ export class Dtop extends Component {
 }
 
 
-export default Dtop
+// export default Dtop
+export default connect((state) => {
+        return state 
+    // =====》返回值《======
+    // 这是index.js里边的state仓库里的对象
+    //在页面引用的话就是    this.props.键
+}, (dispatch) => {
+        return {
+            // =====》这是要更改state仓库里的函数《======
+            fenlei(lie){
+                console.log("运行");
+                dispatch({
+                    // type是更改的方法名字，下面是state中要更改的键和值
+                    type:"leilist",
+                    lei:lie
+                })
+            }
+        }
+})(Dtop);

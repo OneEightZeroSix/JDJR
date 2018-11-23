@@ -1,6 +1,5 @@
 .uploadPic{
 
-
 .uploadArea{
   width:100%;
   height:200px;
@@ -18,6 +17,34 @@
 .upheader{
     background:#eee;
 }
+/* 打开摄像头样式 */
+.headerCreame{
+  display:inline-block;
+  margin:0 0 0 60px;
+  height:20px;
+  border:1px solid #fff;
+  line-height:20px;
+}
+
+/* 摄像区域样式 */
+.shexiang{
+  width:100%;
+  /* height:100%; */
+  background:green;
+}
+
+#video{
+  margin:0 auto;
+  width:100%;
+  height:300px;
+  background:skyblue;
+}
+#canvas{
+  width:100%;
+  height:100px;
+  background:yellow;
+}
+
 
 /* @update: 2017-2-21 14:44:44 */ 
 

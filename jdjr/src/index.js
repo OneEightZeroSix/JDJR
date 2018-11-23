@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import axios from 'axios';
 import $ from 'jquery';
 
 //路由
@@ -24,26 +24,28 @@ import Register from './pages/Register/Register.js';
 import Newpass from './pages/Newpass/Newpass.js';
 import Newpay from './pages/Newpay/Newpay.js';
 import Sort from './pages/Sort/Sort.js';
+import Details from './pages/Details/Details.js';
 // 芸
 //页面组件 
-import ConfrimId from './pages/ConfrimId/ConfrimId.js';
 import Home from './pages/Home/Home.js';
 import Makemoney from './pages/Makemoney/Makemoney.js';
 import Lendmoney from './pages/Lendmoney/Lendmoney.js';
 import Savemoney from './pages/Savemoney/Savemoney.js';
 import Member from './pages/Member/Member.js';
+import ConfrimId from './pages/ConfrimId/ConfrimId.js';
 import UploadPic from './pages/UploadPic/UploadPic.js';
 
 // import Detail from './pages/Detail/Detail.jsx';
 
 
 import * as serviceWorker from './serviceWorker';
-
+React.axios = axios;
 
 
 
 //创建仓库
 const store = createStore(function(state={
+    lei:"",
     tab:0,
     tabs:[{
         title:"首页",
@@ -71,6 +73,7 @@ const store = createStore(function(state={
         href:"member",
         dot:false
     }],
+    car:"",
     isShowShortCart:false
 },action){
    
@@ -84,6 +87,16 @@ const store = createStore(function(state={
             return {
                 ...state,
                 tab:action.tab
+            }
+        case 'leilist':
+            return {
+                ...state,
+                lei:action.lei
+            }
+        case 'details':
+            return {
+                ...state,
+                car:action.car
             }
         default:
             return state
@@ -104,6 +117,7 @@ ReactDOM.render(
                         <Route path="/member/" component={Member} />
                         <Route path="/confrimid/" component={ConfrimId} />
                         <Route path="/uploadpic/" component={UploadPic} />
+
                     {/* </div> */}
                     {/* <div> */}
                         {/* 分类界面 */}
@@ -124,6 +138,8 @@ ReactDOM.render(
                         <Route path="/newpay/" component={Newpay} />
                         {/* 种类界面 */}
                         <Route path="/sort/" component={Sort} /> 
+                        {/*商品详情界面 */}
+                        <Route path="/details/" component={Details} /> 
                         {/* <Route path="/detail/:id/:song_id" component={Detail} /> */}
                     {/* </div> */}
                 </div>
