@@ -2,17 +2,14 @@ import React, { Component } from 'react';
 
 import './UploadPic.scss';
 
-import { Upload, Icon, Modal,Progress} from 'antd';
-import Cookie from '../../libs/cookie.js';
+import { Upload, Icon, Modal } from 'antd';
 
 
 class UploadPic extends Component {
     constructor(props){
         super(props);
         this.state={
-            isShowLayer:false,
-            switchClass:true,
-            progressNum:1,
+            isShowLayer:true,
             previewVisible: false,
             previewImage: '',
             fileList: [{
@@ -21,7 +18,6 @@ class UploadPic extends Component {
               status: 'done',
               url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
             }],
-            
         }
     }
     
@@ -37,33 +33,6 @@ class UploadPic extends Component {
 
     handleChange = ({ fileList }) => this.setState({ fileList })
 
-    
-    
-    /*设置定时器,点击上传的时候启动*/
-    clickUpload(){
-        /*获得cookie*/
-        /*let uname=Cookie.getCookie('yonghuming');*/
-
-
-        /*遮罩层*/
-        this.setState({
-            isShowLayer:true
-        })
-
-        /*动态进度条*/
-        let i=0;
-        let timer=setInterval(()=>{
-            if(i<=100){
-                i++;
-                this.setState({
-                    progressNum:i
-                })
-            }else{
-                clearInterval(timer);
-                console.log("跳转其他页面=======================================待做");
-            }
-        },30)
-    }
     
     render() { 
         const { previewVisible, previewImage, fileList } = this.state;
@@ -86,7 +55,7 @@ class UploadPic extends Component {
                         <div  className="decoration">请依次上传身份证的正、反面</div>
                         <div className="clearfix">
                             <Upload
-                              action="//jsonplaceholder.typicode.com/posts/?uname=1"
+                              action="//jsonplaceholder.typicode.com/posts/"
                               listType="picture-card"
                               fileList={fileList}
                               onPreview={this.handlePreview}
@@ -100,7 +69,7 @@ class UploadPic extends Component {
                         </div>
                     </div>
 
-                    <div onClick={this.clickUpload.bind(this)}  id="confirmBtn"  className="makeSurebtn col-btn1Gray btn-can-press">
+                    <div id="confirmBtn"  className="makeSurebtn col-btn1Gray btn-can-press">
                         上传
                     </div>
 
@@ -108,13 +77,7 @@ class UploadPic extends Component {
                     <img src="https://static.360buyimg.com/finance/mobile/serviceCenter/certification/2.0.1//img/footer.png" className="confirm-footer-mt" alt="" />
                     <div style={{paddingTop:"30px"}}></div>
 
-                    <div className="layer" style={{transformOrigin:"0px 0px 0px", opacity:"1", transform:"scale(1, 1)", display:this.state.isShowLayer?'block':'none'}}>
-                        <div className="select-box size18 select-anim">
-                            <div className="select-list">
-                                <Progress type="circle" percent={this.state.progressNum} />
-                            </div>
-                        </div>
-                    </div>
+                    <div className="layer" style={{transformOrigin:"0px 0px 0px", opacity:"1", transform:"scale(1, 1)", display:this.state.isShowLayer?'block':'none'}}></div>
                 </div>
         );
     }
