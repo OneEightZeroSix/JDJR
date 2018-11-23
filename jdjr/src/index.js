@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios';
+
 import $ from 'jquery';
 
 //路由
@@ -26,17 +26,19 @@ import Newpay from './pages/Newpay/Newpay.js';
 import Sort from './pages/Sort/Sort.js';
 // 芸
 //页面组件 
+import ConfrimId from './pages/ConfrimId/ConfrimId.js';
 import Home from './pages/Home/Home.js';
 import Makemoney from './pages/Makemoney/Makemoney.js';
 import Lendmoney from './pages/Lendmoney/Lendmoney.js';
 import Savemoney from './pages/Savemoney/Savemoney.js';
 import Member from './pages/Member/Member.js';
-import ConfrimId from './pages/ConfrimId/ConfrimId.js';
+import UploadPic from './pages/UploadPic/UploadPic.js';
+
 // import Detail from './pages/Detail/Detail.jsx';
 
 
 import * as serviceWorker from './serviceWorker';
-React.axios = axios;
+
 
 
 
@@ -101,6 +103,7 @@ ReactDOM.render(
                         <Route path="/savemoney/" component={Savemoney} />
                         <Route path="/member/" component={Member} />
                         <Route path="/confrimid/" component={ConfrimId} />
+                        <Route path="/uploadpic/" component={UploadPic} />
                     {/* </div> */}
                     {/* <div> */}
                         {/* 分类界面 */}

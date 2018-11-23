@@ -165,7 +165,17 @@ export class Dtop extends Component {
     }
     //数据请求
     loadMore(){
-        React.axios.get("/json/Dlist.json", {
+        $.ajax({
+            type: "GET",
+            url: "/json/Dlist.json",
+            success:(response)=>{
+                console.log(this);
+                this.setState({
+                    lan:this.state.lan.concat(response.data.lan)
+                })
+            }
+        })
+        /*React.axios.get("/json/Dlist.json", {
              
         }).then((response) => {
                 console.log(response);
@@ -174,7 +184,7 @@ export class Dtop extends Component {
                 })
         }).catch(function (error) {
             console.log(error);
-        });
+        });*/
         
     }
     render() {

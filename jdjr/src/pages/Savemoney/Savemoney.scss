@@ -9816,9 +9816,84 @@ li,ul {
 
 
 
+.l_header{
+    width:100%;
+    height:55px;
+}
+.header_left{
+    padding:10px 10px 10px 20px;
+    float:left;
+    width:80px;
+    
+}
+.header_middle{
+    float:left;
+}
+.header_middle li{
+    float:left;
+    width:50px;
+    text-align:center;
+    color:#ccc;
+}
+.header_middle p{
+    font-weight:bold;
+    font-size:20px;
+    
+}
+.header_right{
+    float:right;
+    padding-right:10px
+}
+.header_right a{
+}
 
 
+.lunbotu{
+    width:100%;
+    height:150px;
+    /* background-color:#58bc58  */  
+}
 
+.lunbotu .swiperItem{
+    float:left;
+    width:100%;
+}
+.lunbotu a{
+    display:inline-block;
+    width:100%;
+}
+.lunbo img{
+    display:inline-block;
+    /* width:100%; */
+}
+
+.lunbotu a{
+    display:inline-block;
+    width:100%;
+}
+
+.pay{
+    width:100%;
+}
+
+.pay .payItem{
+    width:33.3%;
+    height:64px;
+    float:left;
+}
+
+
+.youhui{
+    width:100%;
+}
+
+.youhui ul{
+    width:100%;
+}
+.youhui ul li{
+    width:50%;
+    float:left;
+}
 
 
 

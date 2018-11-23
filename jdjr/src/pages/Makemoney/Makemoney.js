@@ -11,6 +11,7 @@ class Makemoney extends Component {
         super(props);
         console.log(this.props);
         this.state={
+            isShowSmallCart:false,
             rowMenu:[{
                 title:"领红包",
                 desc:"",
@@ -217,7 +218,11 @@ class Makemoney extends Component {
     init(){
         console.log("555");
     }
-   
+    showSmallCart(){
+        this.setState({
+            isShowSmallCart: !this.state.isShowSmallCart
+        })
+    }
 
     render() {
         return (
@@ -227,7 +232,9 @@ class Makemoney extends Component {
                         <div className="jd-header-new-bar">
                             <div  id="m_common_header_goback" className="jd-header-icon-back J_ping"><span></span></div>
                             <div className="jd-header-new-title" >赚钱</div>
-                            <div id="m_common_header_jdkey" className="jd-header-icon-new-shortcut J_ping"><span></span></div>
+                            <div id="m_common_header_jdkey" className="jd-header-icon-new-shortcut J_ping">
+                                <span onClick={this.showSmallCart.bind(this)}></span>
+                            </div>
                         </div>
                     </header>
                 </div>
@@ -599,16 +606,36 @@ class Makemoney extends Component {
                     </div>
                 </div>
                 
+                 <div id="header-shortcut-ul">
+                    <ul id="m_common_header_shortcut" className="jd-header-vertical-shortcut" style={{display:this.state.isShowSmallCart? 'block':'none'}}>
+                        <li id="m_common_header_shortcut_m_index">
+                            <Link to={`/home/`} className="J_ping" ><span className="shortcut-index" style={{background:"url(images/yy1.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>首页</strong>
+                            </Link>
+                        </li>
+                        <li id="m_common_header_shortcut_category_search">
+                            <Link to={`/classify/`} className="J_ping" ><span className="shortcut-search" style={{background:"url(images/yy2.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>分类搜索</strong>
+                            </Link>
+                        </li>
+                        <li id="m_common_header_shortcut_p_cart">
+                            <Link to={`/cart/`} className="J_ping" ><span className="shortcut-cart" style={{background:"url(images/yy3.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>购物车</strong>
+                            </Link>
+                        </li>
+                        <li id="m_common_header_shortcut_h_home">
+                            <Link to={`/mine/`} className="J_ping"  ><span className="shortcut-home" style={{background:"url(images/yy4.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>我的京东</strong>
+                            </Link>
+                        </li>
+                        <li id="m_common_header_shortcut_h_footprint">
+                            <Link to={`/home/`} className="J_ping" ><span className="shortcut-footprint" style={{background:"url(images/yy5.png) no-repeat center center",backgroundSize:" 15px"}}></span><strong>浏览记录</strong>
+                            </Link>
+                        </li>
+                    </ul>
+                </div>
 
-                
             </div>
         );
     }
-
-
     componentDidMount (){
         this.init();
-        
     }
 }
 
