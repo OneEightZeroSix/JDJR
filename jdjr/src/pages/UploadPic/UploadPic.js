@@ -9,6 +9,7 @@ class UploadPic extends Component {
     constructor(props){
         super(props);
         this.state={
+            isShowLayer:true,
             previewVisible: false,
             previewImage: '',
             fileList: [{
@@ -49,8 +50,7 @@ class UploadPic extends Component {
                         请上传你的证件图片
                         </p>
                     </div>
-
-                    
+     
                     <div className="uploadArea">
                         <div  className="decoration">请依次上传身份证的正、反面</div>
                         <div className="clearfix">
@@ -70,13 +70,14 @@ class UploadPic extends Component {
                     </div>
 
                     <div id="confirmBtn"  className="makeSurebtn col-btn1Gray btn-can-press">
-                        下一步
+                        上传
                     </div>
-
 
                     <div className="textcont top col-999999 marginauto">以上图片用于身份验证</div>
                     <img src="https://static.360buyimg.com/finance/mobile/serviceCenter/certification/2.0.1//img/footer.png" className="confirm-footer-mt" alt="" />
                     <div style={{paddingTop:"30px"}}></div>
+
+                    <div className="layer" style={{transformOrigin:"0px 0px 0px", opacity:"1", transform:"scale(1, 1)", display:this.state.isShowLayer?'block':'none'}}></div>
                 </div>
         );
     }
