@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import './UploadPic.scss';
 
 import { Upload, Icon, Modal,Progress} from 'antd';
+import Cookie from '../../libs/cookie.js';
 
 
 class UploadPic extends Component {
@@ -39,9 +40,13 @@ class UploadPic extends Component {
     
     /*设置定时器,点击上传的时候启动*/
     clickUpload(){
+        /*获得cookie*/
+        /*let uname=Cookie.getCookie('yonghuming');*/
+
+        
         /*发送请求保存图片*/
 
-
+        
 
 
         /*遮罩层*/
