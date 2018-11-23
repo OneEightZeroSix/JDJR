@@ -142,6 +142,8 @@ class Home extends Component {
                 })
             }
         })
+    
+        
         /*滚动条*/
         window.onscroll =()=>{
             if(window.scrollY >300){

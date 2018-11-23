@@ -21,6 +21,7 @@ class UploadPic extends Component {
               status: 'done',
               url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
             }],
+            
         }
     }
     
@@ -42,11 +43,6 @@ class UploadPic extends Component {
     clickUpload(){
         /*获得cookie*/
         /*let uname=Cookie.getCookie('yonghuming');*/
-
-        
-        /*发送请求保存图片*/
-
-        
 
 
         /*遮罩层*/
@@ -90,7 +86,7 @@ class UploadPic extends Component {
                         <div  className="decoration">请依次上传身份证的正、反面</div>
                         <div className="clearfix">
                             <Upload
-                              action="//jsonplaceholder.typicode.com/posts/"
+                              action="//jsonplaceholder.typicode.com/posts/?uname=1"
                               listType="picture-card"
                               fileList={fileList}
                               onPreview={this.handlePreview}
