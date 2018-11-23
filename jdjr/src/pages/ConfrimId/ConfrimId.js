@@ -54,7 +54,7 @@ class ConfrimId extends Component {
     }
     
     /* 显示删除图标*/
-    changeForName(){
+    displayDelIcon(){
         this.setState({
             clearClass:true
         })
@@ -118,8 +118,8 @@ class ConfrimId extends Component {
                 <div className="nameAndId col-bgw ">
                     <div className="ui-form-item pos-re ui-textfield clearfix" id="cot-username">
                         <span className={this.state.nameClass? 'anim-label anim-label-moved':'anim-label'} >真实姓名</span>
-                        <br/>
-                        <input className=" debit anim-input upinput" type="text" id="username" autoComplete="on"  onFocus={this.changeNameColor.bind(this)}  onBlur={this.recurNameColor.bind(this)}  ref="nameInput"/>
+                        
+                        <input className=" debit anim-input upinput" type="text" id="username" autoComplete="on"  onFocus={this.changeNameColor.bind(this)}  onBlur={this.recurNameColor.bind(this)} onInput={this.displayDelIcon.bind(this)} ref="nameInput"/>
                         <div id="userNameCan" onClick={this.clearValue.bind(this)} className={this.state.clearClass? 'rightCancel pos-ab ':'rightCancel pos-ab dn'}><img className="pos-ab" src="https://mjr.jd.com/spe/smrz/img/clear.png" /></div> 
                     </div>
                     <br />

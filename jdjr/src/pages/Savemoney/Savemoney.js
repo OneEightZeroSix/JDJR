@@ -13,6 +13,7 @@ class Savemoney extends Component {
             isShowSmallCart:false,
             isShowMyLayer:false,
             showQuan:"",
+            isAnimate:false,
             qiandao:[{
                 title:"任务",
                 num:0,
@@ -91,8 +92,17 @@ class Savemoney extends Component {
     /*真正获取优惠券*/
     realGetQuan(){
         this.setState({
-            isShowMyLayer:false
+            isAnimate:true
         })
+        let timer=setInterval(()=>{
+
+            this.setState({
+                isShowMyLayer:false
+            })
+
+        },1)
+        /*clearInterval(timer);*/
+        
     }
 
 
@@ -276,11 +286,13 @@ class Savemoney extends Component {
                 </div>
 
                 <div className="mylayer"  style={{transformOrigin:"0px 0px 0px", opacity:"1", transform:"scale(1, 1)", display:this.state.isShowMyLayer? 'block':'none'}}>
+                    <div className="mylayerAll">
                     <div className="mylayerBox1" onClick={this.realGetQuan.bind(this)}>
-                        <img src={this.state.showQuan} />
+                        <img src={this.state.showQuan} style={{WebkitAnimation:this.state.isAnimate? 'myfirst 30ms':''}}/>
                     </div>
-                    <div className="mylayerBox2">
+                    <div className="mylayerBox2" >
                         <img src="https://mjr.jd.com/spe/smrz/img/clear.png"  onClick={this.calcelQuan.bind(this)}/>
+                    </div>
                     </div>
                 </div>
 

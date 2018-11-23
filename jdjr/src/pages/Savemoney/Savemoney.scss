@@ -19,7 +19,7 @@
     position:fixed;
     top:200px;
     left:0;
-    overflow:hidden;
+    /* overflow:hidden; */
 }
 .mylayer .mylayerBox2{
     margin-top:30px;
@@ -33,9 +33,15 @@
 
 .mylayer .mylayerBox1 img{
     width:100%;
-    height:150px;
+    height:100%;
+    position:absolute;
+    top:0px;
+    left:0px;
+   /*  -webkit-animation:myfirst 5s; */ /* Safari and Chrome */
+    
 
 }
+
 
 .mylayer .mylayerBox2 img{
     width:30px;
@@ -44,6 +50,21 @@
     left:50%;
     top:50%;
     transform: translate(-50%,-50%);
+}
+
+.mylayer .mylayerBox1 .changeToSamll{
+    width:20%;
+    height:20%;
+    position:absolute;
+    top:-130px;
+    left:175px;
+    
+}
+
+@-webkit-keyframes myfirst /* Safari and Chrome */
+{
+    0% {width:100%;height:100%;top:0;left:0;}
+    100%{width:1%;height:100%;top:0;left:0;}
 }
 
     /* @update: 2015-9-10 11:31:31 */
