@@ -11,6 +11,8 @@ class Savemoney extends Component {
       super(props);
       this.state={
             isShowSmallCart:false,
+            isShowMyLayer:false,
+            showQuan:"",
             qiandao:[{
                 title:"任务",
                 num:0,
@@ -45,7 +47,17 @@ class Savemoney extends Component {
                 src:"https://img12.360buyimg.com/jrpmobile/jfs/t24811/310/2150446270/4499/41ff95d9/5bc43903N17a87d6f.png?width=120&amp;height=120",
                 href:""
             }],
-            tabs:this.props.tabs
+            tabs:this.props.tabs,
+            coupon:[{
+                num:5,
+                src:"https://img12.360buyimg.com/jrpmobile/jfs/t22930/284/1784613456/150994/5523cb69/5b697d61Nf7756ac1.png?width=750&height=480",
+                href:""
+            },{
+                num:99,
+                src:"https://img12.360buyimg.com/jrpmobile/jfs/t16630/362/2707031119/15173/aa5acde3/5b03d5c7Nccffa23f.jpg?width=750&height=480",
+                href:""
+            }],
+            getQuanNum:0
         }
     }
 
@@ -55,6 +67,34 @@ class Savemoney extends Component {
             isShowSmallCart: !this.state.isShowSmallCart
         })
     }
+
+
+    /*获取优惠券*/
+    getQuan(item){
+        this.setState({
+            isShowMyLayer:true
+        })
+        this.setState({
+            showQuan:item.src
+        })
+        
+    }
+
+    /*取消领取优惠券*/
+    calcelQuan(){
+        this.setState({
+            isShowMyLayer:false
+        })
+    }
+    
+    
+    /*真正获取优惠券*/
+    realGetQuan(){
+        this.setState({
+            isShowMyLayer:false
+        })
+    }
+
 
     render() {
         return (
@@ -80,7 +120,7 @@ class Savemoney extends Component {
                         <ul className="clearfix">
                             <li><a href="#"><h3>任务</h3><p className="middleNum">37</p></a></li>
                             <li><a href="#"><h3>账单</h3><p className="middleNum">0</p></a></li>
-                            <li><a href="#"><h3>卡券</h3><p className="middleNum">0</p></a></li>
+                            <li><a href="#"><h3>卡券</h3><p className="middleNum">{this.state.getQuanNum}</p></a></li>
 
                         </ul>
                     </div>
@@ -116,14 +156,19 @@ class Savemoney extends Component {
                     </div>
                 </div>
 
+                
                 <div className="youhui">
                     <ul className="clearfix">
-                        <li>
-                            <a href="javascript:;"><img src="https://img12.360buyimg.com/jrpmobile/jfs/t22930/284/1784613456/150994/5523cb69/5b697d61Nf7756ac1.png?width=750&height=480" width="160px" height="102px"/></a>
-                        </li>
-                        <li>
-                            <a href="javascript:;"><img src="https://img12.360buyimg.com/jrpmobile/jfs/t16630/362/2707031119/15173/aa5acde3/5b03d5c7Nccffa23f.jpg?width=750&height=480" width="160px" height="102px"/></a>
-                        </li>
+
+                        {(()=>{
+                            return this.state.coupon.map((item,index)=>{
+                                return (
+                                    <li key={index}  onClick={this.getQuan.bind(this,item)}>
+                                        <a href="javascript:;"><img src={item.src} width="160px" height="102px"/></a>
+                                    </li>
+                                )
+                            })
+                        })()}
                     </ul>
                 </div>
                 {/*====================================================================================*/}
@@ -201,7 +246,6 @@ class Savemoney extends Component {
                                 </div>
                             </div>
 
-
                         </div>
                     </div>
                 </div>
@@ -231,9 +275,14 @@ class Savemoney extends Component {
                     </ul>
                 </div>
 
-                <div id="header-mask" style={{display:"none"}}></div>
-                <div className="add-bottom-seize"></div>
-                <div className="black-cover" id="qyy-black-cover" style={{display:"none"}}></div>
+                <div className="mylayer"  style={{transformOrigin:"0px 0px 0px", opacity:"1", transform:"scale(1, 1)", display:this.state.isShowMyLayer? 'block':'none'}}>
+                    <div className="mylayerBox1" onClick={this.realGetQuan.bind(this)}>
+                        <img src={this.state.showQuan} />
+                    </div>
+                    <div className="mylayerBox2">
+                        <img src="https://mjr.jd.com/spe/smrz/img/clear.png"  onClick={this.calcelQuan.bind(this)}/>
+                    </div>
+                </div>
 
             </div>
         );

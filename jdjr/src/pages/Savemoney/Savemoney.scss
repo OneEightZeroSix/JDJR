@@ -1,4 +1,51 @@
 .savemoney{
+
+.mylayer{
+    width:100%;
+    height:100%;
+    background-color:rgba(0,0,0,0.7);
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index:1000;
+}
+
+.mylayer .mylayerBox1{
+    margin-left:5%;
+    width:90%;
+    height:122px;
+    position:fixed;
+    top:200px;
+    left:0;
+    overflow:hidden;
+}
+.mylayer .mylayerBox2{
+    margin-top:30px;
+    width:90%;
+    margin-left:5%;
+    height:30px;
+    position:fixed;
+    top:300px;
+    left:0;
+}
+
+.mylayer .mylayerBox1 img{
+    width:100%;
+    height:150px;
+
+}
+
+.mylayer .mylayerBox2 img{
+    width:30px;
+    height:30px;
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+}
+
     /* @update: 2015-9-10 11:31:31 */
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td {
     margin: 0;
