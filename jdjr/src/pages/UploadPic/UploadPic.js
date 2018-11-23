@@ -9,7 +9,7 @@ class UploadPic extends Component {
     constructor(props){
         super(props);
         this.state={
-            isShowLayer:true,
+            isShowLayer:false,
             previewVisible: false,
             previewImage: '',
             fileList: [{
@@ -77,7 +77,12 @@ class UploadPic extends Component {
                     <img src="https://static.360buyimg.com/finance/mobile/serviceCenter/certification/2.0.1//img/footer.png" className="confirm-footer-mt" alt="" />
                     <div style={{paddingTop:"30px"}}></div>
 
-                    <div className="layer" style={{transformOrigin:"0px 0px 0px", opacity:"1", transform:"scale(1, 1)", display:this.state.isShowLayer?'block':'none'}}></div>
+                    <div className="layer" style={{transformOrigin:"0px 0px 0px", opacity:"1", transform:"scale(1, 1)", display:this.state.isShowLayer?'block':'none'}}>
+                        <div className={this.state.switchClass?'select-box size18 select-anim':'select-box size18'}>
+                            <div className="select-list">
+                            </div>
+                        </div>
+                    </div>
                 </div>
         );
     }
