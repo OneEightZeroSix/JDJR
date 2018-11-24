@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { Link } from "react-router-dom";
 
-
+import Swiper from "swiper";
 import './Makemoney.scss';
-
+import LocateRoute from '../../libs/locateRoute.js';
+import { Carousel } from 'antd';
 
 class Makemoney extends Component {
     constructor(props){
@@ -216,7 +217,11 @@ class Makemoney extends Component {
     }
     
     init(){
-        console.log("555");
+        var mySwiper = new Swiper('.swiper-container',{
+            slidesPerView : 2.5,
+            freeMode:true,
+            spaceBetween : '5%'
+        })
     }
     showSmallCart(){
         this.setState({
@@ -328,15 +333,17 @@ class Makemoney extends Component {
                                 </div>
                                 <div className="row zctj bottomMargin">
                                     <div className="wrap" style={{position:"relative", display:"block", width:"100%", height:"auto",boxSizing:"border-box",visibility:"visible"}}>
+
+
                                         <div className="" style={{position:"relative",display:"block", overflow: "hidden", height:"100px", margin:"0px", padding:"0px", transform:"translate3d(0px, 0px, 0px)", boxSizing:"border-box"}}>
-                                            <ul className="" style={{transform:"translate3d(0px, 0px, 0px)", position:"relative", display:"block", margin:"0px", padding:"0px", height: "500px", width:"auto", cursor:"inherit", boxSizing:"border-box"}}>
-                                               
+                                            <ul className="" style={{position:"relative", display:"block", margin:"0px", padding:"0px", height: "500px", width:"auto", cursor:"inherit", boxSizing:"border-box"}}>
+                                               <Carousel autoplay vertical dots="false">
                                                 {(()=>{
                                                     return this.state.sliderList.map((item,index)=>{
                                                         return(
                                                             <div key={index}>
-                                                            <li  className="" style={{position:"absolute", left:"0px", top:"0px",display:"block", listStyleType:"none", verticalAlign:"top", width:"100%", height:"auto", boxSizing:"border-box", margin:"0px auto"}}>
-                                                                <div className="v-item item" clstag="pageclick|keycount|Qing_1176_4007|6031_28163|null"><img className="img" src={item.src} />
+                                                            <li  className="" style={{}}>
+                                                                <div className="v-item item" ><img className="img" src={item.src} />
                                                                     <p className="title">{item.title}</p>
                                                                 </div>
                                                             </li>
@@ -344,7 +351,7 @@ class Makemoney extends Component {
                                                         )
                                                     })
                                                 })()}
-                                               
+                                                </Carousel>
                                             </ul>
                                         </div>
                                     </div>}
@@ -558,7 +565,7 @@ class Makemoney extends Component {
                                     {(()=>{
                                         return this.state.tabs.map((item,index)=>{
                                             return (
-                                                <Link to={`/${item.href}/`}  onClick={this.props.skipTo.bind(this,item,index)}  key={index} className="item" clstag="pageclick|keycount|Qing_1176_4013|6012_33023|null"><img className="user-img" src={item.src} alt="" />
+                                                <Link to={`/${item.href}/`}  onClick={this.props.skipTo.bind(this,index)}  key={index} className="item" clstag="pageclick|keycount|Qing_1176_4013|6012_33023|null"><img className="user-img" src={item.src} alt="" />
                                                     <p className="title" style={this.props.tab===index? {color:"rgb(70, 104, 255)"} : {color:"rgb(177, 180, 187)"}}>{item.title}</p>
                                                 </Link>
                                             )
@@ -640,6 +647,7 @@ class Makemoney extends Component {
     }
     componentDidMount (){
         this.init();
+        LocateRoute.locateRoute(this);
     }
 }
 
@@ -647,7 +655,7 @@ export default connect((state)=>{
     return state;
 },(dispatch)=>{
     return {
-        skipTo(item,index){
+        skipTo(index){
             dispatch({
                 type:"skipTo",
                 tab:index

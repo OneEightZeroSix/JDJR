@@ -7,6 +7,8 @@ import './Savemoney.scss';
 import { Carousel } from 'antd';
 
 import Cookie from "../../libs/cookie.js";
+import LocateRoute from '../../libs/locateRoute.js';
+
 
 class Savemoney extends Component {
     constructor(props){
@@ -275,7 +277,7 @@ class Savemoney extends Component {
                                     {(()=>{
                                         return this.state.tabs.map((item,index)=>{
                                             return (
-                                                <Link to={`/${item.href}/`} onClick={this.props.skipTo.bind(this,item,index)}  key={index} className="item" data-qyy-eredid="0" data-qyy-eid="34262" jrmsc="on" data-qyy-click="" clstag="pageclick|keycount|Qing_1209_4945|7910_34262|null" data-qyy-cardpageinfos="" data-qyy-ejumptype="1" data-qyy-jumpt="https://m.jr.jd.com/spe/qyy/main/index.html?userType=67&amp;sid="><img src={item.src} className="user-img" alt="" />
+                                                <Link to={`/${item.href}/`} onClick={this.props.skipTo.bind(this,index)}  key={index} className="item" data-qyy-eredid="0" data-qyy-eid="34262" jrmsc="on" data-qyy-click="" clstag="pageclick|keycount|Qing_1209_4945|7910_34262|null" data-qyy-cardpageinfos="" data-qyy-ejumptype="1" data-qyy-jumpt="https://m.jr.jd.com/spe/qyy/main/index.html?userType=67&amp;sid="><img src={item.src} className="user-img" alt="" />
                                                     <p className="blue" style={this.props.tab===index?{color:"#4668FF"}:{color:"#B1B4BB"}}>{item.title}</p>
                                                 </Link>
                                             )
@@ -329,13 +331,16 @@ class Savemoney extends Component {
             </div>
         );
     }
+    componentDidMount (){
+        LocateRoute.locateRoute(this);
+    }
 }
 
 export default connect((state)=>{
     return state;
 },(dispatch)=>{
     return {
-        skipTo(item,index){
+        skipTo(index){
             dispatch({
                 type:"skipTo",
                 tab:index

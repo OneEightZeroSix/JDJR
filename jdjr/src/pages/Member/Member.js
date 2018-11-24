@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import { Link } from "react-router-dom";
 
-
+import LocateRoute from '../../libs/locateRoute.js';
 
  import './Member.scss';
 
@@ -59,7 +59,8 @@ class Member extends Component {
                 src: "https://img12.360buyimg.com/jrpmobile/jfs/t1/3907/34/11652/2582/5bd04759Ea9acb837/f893bf98fd67c192.png?width=54&amp;height=54",
                 href: ""
             }],
-            tabs:this.props.tabs
+            tabs:this.props.tabs,
+            uname:""
         }
     }
 
@@ -72,6 +73,8 @@ class Member extends Component {
     goBack(){
        this.props.history.goBack();
     }
+
+    /*通过cookie获取用户名，放入相应的HTML结构*/
 
     render() {
         return (
@@ -88,7 +91,7 @@ class Member extends Component {
                                 <div className="row personal-assets ">
                                     <section className="personal-assets-user" ><img className="header" id="qyy-personal-assets-user-img" src="http://img12.360buyimg.com/jrpmobile/jfs/t2644/238/1420176553/1442/96e2885/573d96deN06201af5.png?width=100&amp;height=100" alt="" />
                                         <div className="info">
-                                            <div className="name" id="qyy-personal-assets-user-name">jd_157707ujs</div><span className="user-pin" id="qyy-personal-assets-user-pin">jd_6cafe92b6922e</span>
+                                            <div className="name" id="qyy-personal-assets-user-name">{this.state.uname}</div><span className="user-pin" id="qyy-personal-assets-user-pin">jd_6cafe92b6922e</span>
                                         </div>
                                         <div className="right"><span style={{color:""}}>会员福利</span><img className="arrow" src="//m.jr.jd.com/spe/qyy/main/images/icon_arrow1.png" alt=""/></div>
                                     </section>
@@ -181,7 +184,7 @@ class Member extends Component {
                             {(()=>{
                                 return this.state.tabs.map((item,index)=>{
                                     return (
-                                        <Link to={`/${item.href}/`} onClick={this.props.skipTo.bind(this,item,index)}  key={index} className="item" ><img src={item.src} className="user-img" alt="" />
+                                        <Link to={`/${item.href}/`} onClick={this.props.skipTo.bind(this,index)}  key={index} className="item" ><img src={item.src} className="user-img" alt="" />
                                             <p className="blue" style={this.props.tab===index?{color:"#4668FF"}:{color:"#B1B4BB"}}>{item.title}</p>
                                         </Link>
                                     )
@@ -221,13 +224,18 @@ class Member extends Component {
             </div>
         );
     }
+
+    componentDidMount(){
+        LocateRoute.locateRoute(this);
+        
+    }
 }
 
 export default connect((state)=>{
     return state;
 },(dispatch)=>{
     return {
-        skipTo(item,index){
+        skipTo(index){
             dispatch({
                 type:"skipTo",
                 tab:index

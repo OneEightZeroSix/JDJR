@@ -18,6 +18,7 @@ import Lendmoney from './pages/Lendmoney/Lendmoney.js';
 import Savemoney from './pages/Savemoney/Savemoney.js';
 import Member from './pages/Member/Member.js';
 import UploadPic from './pages/UploadPic/UploadPic.js';
+import Paycenter from './pages/Paycenter/Paycenter.js';
 
 
 
@@ -53,7 +54,8 @@ const store = createStore(function(state={
         href:"member",
         dot:false
     }],
-    isShowShortCart:false
+    isShowShortCart:false,
+    lendNum:0
 },action){
    
     switch(action.type){
@@ -66,6 +68,11 @@ const store = createStore(function(state={
             return {
                 ...state,
                 tab:action.tab
+            }
+        case 'setLendNum':
+            return {
+                ...state,
+                lendNum:action.lendNum
             }
         default:
             return state
@@ -85,6 +92,7 @@ ReactDOM.render(
                 <Route path="/member/" component={Member} />
                 <Route path="/confrimid/" component={ConfrimId} />
                 <Route path="/uploadpic/" component={UploadPic} />
+                <Route path="/paycenter/" component={Paycenter} />
                 
 
             </div>
