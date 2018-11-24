@@ -96,7 +96,7 @@ class Savemoney extends Component {
     realGetQuan(){
         /*let len = Cookie.getCookie().length;*/
         
-        
+
         /*发送ajax*/
        /* $.ajax({
             type:"POST",
@@ -112,7 +112,8 @@ class Savemoney extends Component {
         
 
         this.setState({
-            isAnimate:true
+            isAnimate:true,
+            getQuanNum:this.state.getQuanNum+1
         })
 
         let timer=setInterval(()=>{
