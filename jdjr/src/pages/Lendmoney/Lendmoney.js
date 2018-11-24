@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Carousel } from 'antd'
 import '../../assets/antd.css'
 import './Lendmoney.scss';
-
+import LocateRoute from '../../libs/locateRoute.js';
 
 
 
@@ -38,9 +38,13 @@ class Lendmoney extends Component {
 
   /*跳转到验证身份页面*/
   goConfrimId(){
-      this.props.history.push('/confrimid/');
+    this.props.history.push('/confrimid/');
   }
 
+  goBack(){
+    this.props.history.goBack();
+  }
+  
   render() {
     return (
       
@@ -52,7 +56,7 @@ class Lendmoney extends Component {
         <div id="m_common_header" min-height="40px">
           <header className="jd-header">
               <div className="jd-header-new-bar">
-                  <div id="m_common_header_goback" className="jd-header-icon-back J_ping">
+                  <div  onClick={this.goBack.bind(this)} id="m_common_header_goback" className="jd-header-icon-back J_ping">
                       <span></span>
                   </div>
                   <div className="jd-header-new-title">借钱</div>
@@ -182,7 +186,7 @@ class Lendmoney extends Component {
                   {(()=>{
                         return this.state.tabs.map((item,index)=>{
                           return (
-                            <Link to={`/${item.href}/`} onClick={this.props.skipTo.bind(this,item,index)}  key={index} className="item"><img src={item.src} className="user-img" alt="" />
+                            <Link to={`/${item.href}/`} onClick={this.props.skipTo.bind(this,index)}  key={index} className="item"><img src={item.src} className="user-img" alt="" />
                               <p className="blue" style={this.props.tab===index?{color:"#4668FF"}:{color:"#B1B4BB"}}>{item.title}</p>
                             </Link>
                           )
@@ -225,9 +229,10 @@ class Lendmoney extends Component {
   }
 
 
-//   componentDidMount (){
-//     this.init()
-//   }
+  componentDidMount (){
+    LocateRoute.locateRoute(this);
+  }
+
 }
 
 
@@ -236,7 +241,7 @@ export default connect((state)=>{
     return state;
 },(dispatch)=>{
     return {
-        skipTo(item,index){
+        skipTo(index){
             dispatch({
                 type:"skipTo",
                 tab:index

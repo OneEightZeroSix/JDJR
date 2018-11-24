@@ -11,6 +11,7 @@ import '../../assets/antd.css';
 import '../../assets/swiper.min.css';
 import $ from 'jquery';
 import Swiper from 'swiper';
+import LocateRoute from '../../libs/locateRoute.js';
 
 
 class Home extends Component {
@@ -165,6 +166,9 @@ class Home extends Component {
         })
     }
 
+    goBack(){
+       this.props.history.goBack();
+    }
    /* goTop(){
         var scrollToptimer  = setInterval(function () {
             console.log("定时循环回到顶部")
@@ -180,7 +184,7 @@ class Home extends Component {
             }
         }, 30);
     }*/
-
+    
     showSmallCart(){
         this.setState({
             isShowSmallCart: !this.state.isShowSmallCart
@@ -287,7 +291,6 @@ class Home extends Component {
                                         if(this.state.home_data==undefined){
                                             return
                                         }*/
-
                                         return this.state.radioButtons1.map((item,index)=>{
                                             return (
                                                 <div key={index} className="item"  style={{width:'0.251%'}}>
@@ -450,7 +453,7 @@ class Home extends Component {
                                             })
 
                                             return (
-                                                <Link to={`/${item.href}/`} onClick={this.props.skipTo.bind(this,item,index)} key={index} className="item" >
+                                                <Link to={`/${item.href}/`} onClick={this.props.skipTo.bind(this,index)} key={index} className="item" >
                                                     <img src={item.src} alt=""/>
                                                     <p className="blue" style={this.props.tab===index ? {color:'#4668FF'}:{color:'#B1B4BB'}}>{item.title}</p>
                                                     {
@@ -473,7 +476,7 @@ class Home extends Component {
                 <div id="m_common_header2" className="m_common_header2">
                     <header className="jd-header">
                         <div className="jd-header-new-bar">
-                            <div  id="m_common_header2_goback" className="jd-header-icon-back J_ping"><span></span></div>
+                            <div  onClick={this.goBack.bind(this)} id="m_common_header2_goback" className="jd-header-icon-back J_ping"><span></span></div>
                             <div className="jd-header-new-title">京东金融</div>
                             <div  id="m_common_header2_jdkey" className="jd-header-icon-new-shortcut J_ping">
                                 <span onClick={this.showSmallCart.bind(this)}></span>
@@ -511,7 +514,8 @@ class Home extends Component {
         );
     }
     componentDidMount (){
-        this.init()
+        this.init();
+        LocateRoute.locateRoute(this);
     }
 }
 
@@ -519,7 +523,7 @@ export default connect((state)=>{
     return state;
 },(dispatch)=>{
     return {
-        skipTo(item,index){
+        skipTo(index){
             dispatch({
                 type:"skipTo",
                 tab:index
