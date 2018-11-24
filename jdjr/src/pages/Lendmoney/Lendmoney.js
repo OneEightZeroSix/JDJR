@@ -38,9 +38,13 @@ class Lendmoney extends Component {
 
   /*跳转到验证身份页面*/
   goConfrimId(){
-      this.props.history.push('/confrimid/');
+    this.props.history.push('/confrimid/');
   }
 
+  goBack(){
+    this.props.history.goBack();
+  }
+  
   render() {
     return (
       
@@ -52,7 +56,7 @@ class Lendmoney extends Component {
         <div id="m_common_header" min-height="40px">
           <header className="jd-header">
               <div className="jd-header-new-bar">
-                  <div id="m_common_header_goback" className="jd-header-icon-back J_ping">
+                  <div  onClick={this.goBack.bind(this)} id="m_common_header_goback" className="jd-header-icon-back J_ping">
                       <span></span>
                   </div>
                   <div className="jd-header-new-title">借钱</div>

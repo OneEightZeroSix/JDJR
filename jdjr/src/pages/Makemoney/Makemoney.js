@@ -224,13 +224,17 @@ class Makemoney extends Component {
         })
     }
 
+    goBack(){
+       this.props.history.goBack();
+    }
+
     render() {
         return (
             <div className="jMakemoney">
                 <div id="m_common_header" style={{width:"100%",minHeight:"45px",position:"fixed",top:"0",left:"0",zIndex:"100000000"}}>
                     <header className="jd-header">
                         <div className="jd-header-new-bar">
-                            <div  id="m_common_header_goback" className="jd-header-icon-back J_ping"><span></span></div>
+                            <div  onClick={this.goBack.bind(this)}  id="m_common_header_goback" className="jd-header-icon-back J_ping"><span></span></div>
                             <div className="jd-header-new-title" >赚钱</div>
                             <div id="m_common_header_jdkey" className="jd-header-icon-new-shortcut J_ping">
                                 <span onClick={this.showSmallCart.bind(this)}></span>

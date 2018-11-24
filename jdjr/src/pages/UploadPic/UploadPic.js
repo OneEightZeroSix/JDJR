@@ -20,7 +20,7 @@ class UploadPic extends Component {
               uid: '-1',
               name: 'xxx.png',
               status: 'done',
-              url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+              url: 'https://gss0.baidu.com/-4o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/d31b0ef41bd5ad6e417e627286cb39dbb7fd3ca6.jpg',
             }],
         }
     }
@@ -37,63 +37,66 @@ class UploadPic extends Component {
 
     handleChange = ({ fileList }) => this.setState({ fileList })
 
-    
-    
-    /*设置定时器,点击上传的时候启动*/
-    clickUpload(){
-        /*获得cookie*/
-        /*let uname=Cookie.getCookie('yonghuming');*/
+    hasCookie(){
+        return  Cookie.getCookie("yonghuming")||[];
+    }
 
-        /*遮罩层*/
-        this.setState({
-            isShowLayer:true
-        })
 
-        /*动态进度条*/
-        let i=0;
-        let timer=setInterval(()=>{
-            if(i<=100){
-                i++;
-                this.setState({
-                    progressNum:i
-                })
-            }else{
-                clearInterval(timer);
-                this.setState({
-                    isShowLayer:false  
-                })
-                console.log("跳转其他页面=====================================待做");
-            }
-        },30)
+    /*===============================================*/
+    shezhiCookie(){
+        Cookie.setCookie("yonghuming","111111");
     }
     
+    qingchuCookie(){
+        Cookie.countdown();
+    } 
 
+    /*====================================*/
 
-    /*开启摄像头*/
-    /*openCreame(){
-        let video=this.props.refs.vdo,
-        canvas= this.props.refs.cvs,
-        img = this.props.refs.img,
-        vendorUrl = window.URL || window.webkitURL;
+    /*设置定时器,点击上传的时候启动*/
+    clickUpload(){
+        
+        let len =this.hasCookie().length;
 
-        //媒体对象
-        navigator.getMedia = navigator.getUserMedia ||
-                             navagator.webkitGetUserMedia ||
-                             navigator.mozGetUserMedia ||
-                             navigator.msGetUserMedia;
-        navigator.getMedia({
-            video: true, //使用摄像头对象
-            audio: false  //不适用音频
-        }, function(strem){
-            console.log(strem);
-            video.src = vendorUrl.createObjectURL(strem);
-            video.play();
-        }, function(error) {
-            //error.code
-            console.log(error);
-        });
-    }*/
+        if(len == 0){
+            this.props.history.push('/savemoney/');
+            console.log("修改路由,变成跳转登录");
+        }
+        else{
+            /*判断上传的图片数量*/
+                let num = this.state.fileList.length;
+                if(num == 0){
+                    alert("请先上传身份证,再进行下一步");
+                }else if(num !== 2){
+                    alert("请上传身份证图片");
+                }else if(num == 2){
 
+                    /*遮罩层*/
+                    this.setState({ isShowLayer: true })
+
+                    /*动态进度条*/
+                    let i=0;
+                    let timer=setInterval(()=>{
+                        if(i<=100){
+                            i++;
+                            this.setState({
+                                progressNum:i
+                            })
+                        }else{
+                            clearInterval(timer);
+                            this.setState({
+                                isShowLayer:false  
+                            })
+                            console.log("跳转其他页面贷款额度的页面");
+                        }
+                    },30)
+                }
+          
+        }
+       
+    }
+    
+   
 
     render() { 
         const { previewVisible, previewImage, fileList } = this.state;
@@ -114,7 +117,7 @@ class UploadPic extends Component {
                         </div>
          
                         <div className="uploadArea">
-                            <div  className="decoration">请依次上传身份证的正、反面</div>
+                            <div  className="decoration">请上传身份证的正面</div>
                             <div className="clearfix">
                                 <Upload
                                   action="//jsonplaceholder.typicode.com/posts/"
@@ -149,7 +152,7 @@ class UploadPic extends Component {
                         </div>
                     </div>
 
-                        {/*摄像头*/}
+                    {/*摄像头*/}
                     {/*<div style={{display:"none"}}>
                         <div className="shexiang">
                             <video id="video" ref="vdo"></video>

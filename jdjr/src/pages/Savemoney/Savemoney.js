@@ -64,7 +64,6 @@ class Savemoney extends Component {
         }
     }
 
-
     showSmallCart(){
         this.setState({
             isShowSmallCart: !this.state.isShowSmallCart
@@ -88,45 +87,52 @@ class Savemoney extends Component {
         })
     }
     
-
-    
-
     
     /*真正获取优惠券*/
     realGetQuan(){
-        /*let len = Cookie.getCookie().length;*/
         
+        let cookies=Cookie.getCookie("yonghuming")||[];
+        let len = cookies.length;
 
-        /*发送ajax*/
-       /* $.ajax({
-            type:"POST",
-            url:"",
-            data:{
-                yonghuming:Cookie.getCookie("yonghuming");
-                num:99
-            }
-            success:function(response){
-                // 插入数据库返回的信息
-            }
-        })*/
-        
+        if(len == 0){
+            this.props.history.push('/uploadpic/');
+            console.log("修改路由,变成跳转登录");
+        }else{
+            /*发送ajax,将优惠券金额插入数据库*/
 
-        this.setState({
-            isAnimate:true,
-            getQuanNum:this.state.getQuanNum+1
-        })
+            /* $.ajax({
+                type:"POST",
+                url:"",
+                data:{
+                    yonghuming:cookies,
+                    num:99
+                }
+                success:function(response){
+                    // 插入数据库返回的信息
+                }
+            })*/
+            
 
-        let timer=setInterval(()=>{
             this.setState({
-                isAnimate:false,
-                isShowMyLayer:false
+                isAnimate:true,
+                getQuanNum:this.state.getQuanNum+1
             })
-            clearInterval(timer);
-        },1000)
-        
-        
+
+            let timer=setInterval(()=>{
+                this.setState({
+                    isAnimate:false,
+                    isShowMyLayer:false
+                })
+                clearInterval(timer);
+            },1000)
+        }      
     }
 
+
+    /*返回上一页*/
+    goBack(){
+       this.props.history.goBack();
+    }
 
     render() {
         return (
@@ -134,9 +140,9 @@ class Savemoney extends Component {
                 <div id="m_common_header">
                     <header className="jd-header">
                         <div className="jd-header-new-bar">
-                            <div report-eventid="MCommonHead_Back" report-eventparam="https://active.jd.com/forever/saveMoney/1.0.0/#/indexPage" id="m_common_header_goback" className="jd-header-icon-back J_ping"><span></span></div>
+                            <div onClick={this.goBack.bind(this)} id="m_common_header_goback" className="jd-header-icon-back J_ping"><span></span></div>
                             <div className="jd-header-new-title">省钱</div>
-                            <div report-eventid="MCommonHead_NavigateButton" report-eventparam="https://active.jd.com/forever/saveMoney/1.0.0/#/indexPage" id="m_common_header_jdkey" className="jd-header-icon-new-shortcut J_ping"><span onClick={this.showSmallCart.bind(this)}></span></div>
+                            <div  id="m_common_header_jdkey" className="jd-header-icon-new-shortcut J_ping"><span onClick={this.showSmallCart.bind(this)}></span></div>
                         </div>
                     </header>
                 </div>

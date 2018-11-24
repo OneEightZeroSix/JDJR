@@ -69,6 +69,10 @@ class Member extends Component {
         })
     }
 
+    goBack(){
+       this.props.history.goBack();
+    }
+
     render() {
         return (
             <div className="jMember">
@@ -162,7 +166,7 @@ class Member extends Component {
                     <div id="m_common_header2" className="m_common_header2">
                         <header className="jd-header">
                             <div className="jd-header-new-bar">
-                                <div  id="m_common_header2_goback" className="jd-header-icon-back J_ping"><span></span></div>
+                                <div  onClick={this.goBack.bind(this)} id="m_common_header2_goback" className="jd-header-icon-back J_ping"><span></span></div>
                                 <div className="jd-header-new-title">金融会员</div>
                                 <div  id="m_common_header2_jdkey" className="jd-header-icon-new-shortcut J_ping">
                                     <span  onClick={this.showSmallCart.bind(this)}></span>
