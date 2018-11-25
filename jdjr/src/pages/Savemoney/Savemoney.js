@@ -322,10 +322,10 @@ class Savemoney extends Component {
                             <Link to={`/mine`} className="J_ping"  ><span className="shortcut-home" style={{background:"url(images/yy4.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>我的京东</strong>
                             </Link>
                         </li>
-                        <li id="m_common_header_shortcut_h_footprint">
+                        {/*<li id="m_common_header_shortcut_h_footprint">
                             <Link to={`/home`} className="J_ping" ><span className="shortcut-footprint" style={{background:"url(images/yy5.png) no-repeat center center",backgroundSize:" 15px"}}></span><strong>浏览记录</strong>
                             </Link>
-                        </li>
+                        </li>*/}
                     </ul>
                 </div>
 

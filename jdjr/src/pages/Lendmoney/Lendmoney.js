@@ -26,7 +26,8 @@ class Lendmoney extends Component {
             src:"https://img12.360buyimg.com/jrpmobile/jfs/t30595/13/280997098/57324/f8c24347/5bee212dN45cd3aec.png?width=1080&amp;height=240",
             href:""
           }],
-          tabs:this.props.tabs
+          tabs:this.props.tabs,
+          canBorrow:3000
       }
   }
 
@@ -45,6 +46,13 @@ class Lendmoney extends Component {
     this.props.history.goBack();
   }
   
+  /*说明：canBorrow是剩下可以借的金额*/
+  
+  /*选择了paycenter页面的方式1——————————-从仓库拿用户已借金额，与最高额度相减，得到剩余可借多少*/
+
+
+  /*选择了paycenter页面方式2———发送ajaj请求获取当前用户借款金额，与最高额度相减，得到剩余可借多少*/
+
   render() {
     return (
       
@@ -76,7 +84,7 @@ class Lendmoney extends Component {
           <section className="jdGoldContainer">
             <div className="jdGold"><img src="https://m.jr.jd.com/vip/borrowMoney/widget/jdGold/i/goldCard.png" />
                 <p className="txt1">最高可借</p>
-                <p className="txt2"><span>¥</span>300,000</p>
+                <p className="txt2"><span>¥</span>{this.state.canBorrow}</p>
                 <p clstag="pageclick|keycount|borrowmoney20180105|jintiao" className="txt3" onClick={this.goConfrimId.bind(this)}>申请开通</p>
             </div>
           </section>
@@ -216,10 +224,10 @@ class Lendmoney extends Component {
                             <Link to={`/mine`} className="J_ping"  ><span className="shortcut-home" style={{background:"url(images/yy4.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>我的京东</strong>
                             </Link>
                         </li>
-                        <li id="m_common_header_shortcut_h_footprint">
+                        {/*<li id="m_common_header_shortcut_h_footprint">
                             <Link to={`/home`} className="J_ping" ><span className="shortcut-footprint" style={{background:"url(images/yy5.png) no-repeat center center",backgroundSize:" 15px"}}></span><strong>浏览记录</strong>
                             </Link>
-                        </li>
+                        </li>*/}
               </ul>
         </div>
         

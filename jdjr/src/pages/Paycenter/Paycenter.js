@@ -72,21 +72,28 @@ class Paycenter extends Component {
         this.refs.nameInput.value="";
     }
 
-    /*获取三个值进行提交,并把这个值放入redux进行减法*/
+    /*获取三个值进行提交,
+    方式一：（把这个贷款金额放入redux,以便lendmoney页面调用，进行减法，得到用户还能贷款多少钱）
+    方式二：（将贷款金额存入数据库，等lendmoney页面请求数据库，得到用户贷款金额，进行相减得到用户还能贷款多少钱）*/
+
     commit(){
         let uname=this.refs.nameInput.value;
         let num=this.refs.numInput.value;
         let pwd=this.refs.pwdInput.value;
         
-        /*这两步需要放在三者值不为空的情况下   正则暂时不考虑  第一步不需要*/
-        this.setState({
-                pwdInputValue:num
-        })
+
+        //如果选择方式一,dispatch写好的方法：
+            this.setState({
+                    pwdInputValue:num
+            })
+            this.props.setLendNum(num);
         
-        this.props.setLendNum(num);
+       
+
+        /*这需要放在三者值不为空的情况下   正则暂时不考虑 */
         /*if(uname!== ""  && num !== "" && pwd!== "" ){
     
-            //设置redux用于组件通信
+            //设置redux用于组件通信,设置贷款金额存到仓库用于lendmoney页面使用
             this.setState({
                 pwdInputVaule:num
             })
@@ -107,8 +114,10 @@ class Paycenter extends Component {
                 },
                 success:function(response){
                     // 得到返回的数据结果
+                    //alert("借钱成功");
 
-                    // 跳到其他页面
+                    //跳到借钱页面
+                    // this.props.history.push('/lendmoney/');
                 }
             })
         }*/

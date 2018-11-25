@@ -41,17 +41,7 @@ class UploadPic extends Component {
         return  Cookie.getCookie("yonghuming")||[];
     }
 
-
-    /*===============================================*/
-    shezhiCookie(){
-        Cookie.setCookie("yonghuming","111111");
-    }
     
-    qingchuCookie(){
-        Cookie.countdown();
-    } 
-
-    /*===============================================*/
 
     /*设置定时器,点击上传的时候启动*/
     clickUpload(){
@@ -59,8 +49,9 @@ class UploadPic extends Component {
         let len =this.hasCookie().length;
 
         if(len == 0){
-            this.props.history.push('/savemoney/');
-            console.log("修改路由,变成跳转登录");
+            /*如果不存在cookie,就跳到登录页*/
+            this.props.history.push('/login/');
+            
         }
         else{
             /*判断上传的图片数量*/
@@ -87,7 +78,9 @@ class UploadPic extends Component {
                             this.setState({
                                 isShowLayer:false  
                             })
-                            console.log("跳转其他页面贷款额度的页面");
+                            /*上传完身份证后,跳转到支付中心,设置支付密码*/
+                            this.props.history.push('/paycenter/');
+                            
                         }
                     },30)
                 }
