@@ -42,7 +42,7 @@ class UploadPic extends Component {
     }
 
 
-    /*===============================================*/
+    /*=========假装有用户名，用于测试代码==============*/
     shezhiCookie(){
         Cookie.setCookie("yonghuming","111111");
     }
