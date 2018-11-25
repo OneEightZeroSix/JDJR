@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import cookie from "../../libs/cookie.js";
 
 import { connect} from 'react-redux';
+import ad10 from "../../assets/images/ad10.jpg";
 
 import { Link } from "react-router-dom";
 import $ from  'jquery';
@@ -30,7 +31,10 @@ class Login extends Component {
            juanmin:10000,
            juan:[],
            juanlength:0,
-           diyong:0
+           diyong:0,
+           baitiao:0,
+           yong:"点击使用已借款",
+           yon:0
         //    cur:0,
         //    gongneng:["综合","价格","销量","筛选"],
         //    jia:true,
@@ -40,7 +44,10 @@ class Login extends Component {
     
     // 获取数据
     huoqu(){
-        var yhm=cookie.getCookie("yonghuming");
+        var yhm=cookie.getCookie("yonghuming") || [];
+        if(yhm.length==0){
+            this.props.history.push("login");
+        }
         $.ajax({
             type: "post",
             data: {
@@ -96,6 +103,20 @@ class Login extends Component {
                 })       
             }
         });
+        // 获取可用白条额度
+        $.ajax({
+            type: "post",
+            data: {
+                username: yhm
+            },
+            url: "http://localhost:3001/login/panduan",
+            async: true,
+            success: (data)=>{
+                this.setState({
+                    baitiao:Number(data[0].jie)-Number(data[0].yong)
+                })
+            }
+        });
     }
     // 吸顶效果
     xd=()=>{
@@ -145,11 +166,84 @@ class Login extends Component {
         })
     }
 
+    //使用白条额度
+    ybt(){
+        // $("#wrapBody").css("display","none");
+        $("#ad10").css("display","block");
+        $("#ad20").css("display","block");
+    }
+    
+    //确认使用额度
+    queren(){
+        var zhi=$("#ad30").val();
+        // 正则验证是否输入数字
+        if (!/^[\d]{0,}$/.test(zhi)) {
+            $("#ad30").val("");
+            $("#ad30").attr("placeholder","请输入数字");
+            return false;
+        };
+        //判断可用额度
+        if(Number(zhi)>this.state.baitiao){
+            $("#ad30").val("");
+            $("#ad30").attr("placeholder","您最高额度为"+this.state.baitiao);
+            return false;
+        }
+        $("#ad10").css("display","none");
+        $("#ad20").css("display","none");
+        this.setState({
+            yong:"-¥"+zhi,
+            yon:Number(zhi)
+        })
+    }
+
+    //确认付款
+    fukuan(){
+        $("#ad40").css("display","block");
+        $("#ad20").css("display","block");
+    }
+
+    //关闭付款
+    gbfukuan(){
+        $("#ad40").css("display","none");
+        $("#ad20").css("display","none");
+    }
 
     render() {
         return (
             <div>
+                <div id="ad10" style={{display:"none",textAlign:"center",color:"#fff",position:"fixed",top:"50%",left:"50%",margin:"-25px 0 0 -100px",height:"100px",width:"200px",background:"#3884ff",zIndex:"1200"}}>
+                        <input type="text" id="ad30" placeholder="请输入抵购的借款额度"  style={{color:"#000",height:"20px",marginTop:"20px"}} />
+                        <div onClick={this.queren.bind(this)} style={{width:"150px",height:"30px",lineHeight:"30px",background:"#e93b3d",margin:"15px 0 0 25px"}}>确认</div>
+                </div>
+                {/* <div id="ad40" style={{display:"",textAlign:"center",color:"#fff",position:"fixed",top:"30%",left:"50%",margin:"-25px 0 0 -100px",height:"100%",width:"200px",background:"",zIndex:"1200"}}>
+                        <div onClick={this.queren.bind(this)} style={{width:"150px",height:"30px",lineHeight:"30px",background:"#439057",margin:"20% 0 0 25px"}}>微信</div>
+                        <div onClick={this.queren.bind(this)} style={{width:"150px",height:"30px",lineHeight:"30px",background:"#3884ff",margin:"20% 0 0 25px"}}>支付宝</div>
+                        <div onClick={this.queren.bind(this)} style={{width:"150px",height:"30px",lineHeight:"30px",background:"#e93b3d",margin:"20% 0 0 25px"}}>QQ支付</div>
+                </div> */}
+                <div id="ad40" style={{display:"none",textAlign:"center",color:"#fff",position:"fixed",top:"30%",left:"50%",margin:"-25px 0 0 -100px",height:"100%",width:"200px",background:"",zIndex:"1200"}}>
+                        <img src={ad10} style={{width:"94%",}}/>
+                        <a  onClick={this.gbfukuan.bind(this)}
+                            style={{background:"rgb(169,169,169)",
+                                    position:"fixed",
+                                    top:"0",
+                                    left:"0",
+                                    zIndex:"100",
+                                    borderRadius:"3px",
+                                    opacity:"1"}}>
+                            <div style={{margin:"10px 10px",
+                                    width:"20px",
+                                    height:"20px",
+                                    display:"block",
+                                    background:"url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoBAMAAAB+0KVeAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAYUExURUdwTF1famFhal1fal1fal5ga2FhcF1falIa7fwAAAAHdFJOUwDxN1zamie3ypN1AAAAP0lEQVQoz2NgGAjA5GiAKahYLoCpUByLoGJ5uQEWhcXDRiGDOxaFDOXlAQzEqcRqJlbbh4VSAeLSEvZURyUAAGHYICnlu7kGAAAAAElFTkSuQmCC) no-repeat",
+                                    backgroundSize:"100% 100%",
+                                    }}>
+                            </div>
+                        </a>
+                </div>
+                <div id="ad20" style={{display:"none",textAlign:"center",color:"#fff",position:"fixed",height:"100%",width:"100%",background:"#ccc",opacity:"0.7",zIndex:"1100"}}>
+                </div>
                 <div className="wx_wrap" id="wrapBody">
+                
                 {/* ============================== */}
                     <div className="m_header" >
                         <div className="m_header_bar">
@@ -166,6 +260,7 @@ class Login extends Component {
                     </div>
                     {/* ================================ */}
                     <div id="pagePay" >
+                        
                         <div id="yellowBar">
                             <div className="order_deliver_tips" id="svcTip" style={{position:"static",display:"none"}}>由于地址变更，配送服务发生了变化，请核对~
                             </div>        
@@ -298,10 +393,14 @@ class Login extends Component {
                                     <p className="buy_chart_item_text">优惠卷</p>
                                     <p className="buy_chart_item_price">-¥&nbsp;{this.state.diyong}</p>
                                 </li>
+                                <li className="buy_chart_item">
+                                    <p className="buy_chart_item_text">白条抵购</p>
+                                    <p className="buy_chart_item_price" onClick={this.ybt.bind(this)} >{this.state.yong}</p>
+                                </li>
                             </ul>
                         </div>
                         <div id="payArea" className="pay_area">
-                            <p className="price">总价：<strong id="pageTotalPrice" price="6999.00">¥{this.state.zongjia-this.state.diyong}.00</strong> </p> <a className="order_additional_tips type_lnk"
+                            <p className="price">总价：<strong id="pageTotalPrice" price="6999.00">¥{this.state.zongjia-this.state.diyong-this.state.yon}.00</strong> </p> <a className="order_additional_tips type_lnk"
                                 id="couBar" style={{display: "none"}}>
                                 <p className="order_additional_tips_text"> <span id="freeShipFeeTip"> 购物满99元（10kg内）可免运费 </span> <span className="order_additional_tips_right"
                                         id="shipFeeChou" isdiamond="">去凑单</span> </p>
@@ -344,7 +443,7 @@ class Login extends Component {
                                 </div>
                                 <div className="mod_btns" id="subApproval" style={{display: "none"}}> <a className="mod_btn bg_2">提交审批</a>
                                 </div>
-                                <div className="mod_btns" id="btnPayOnLine" > <a className="mod_btn bg_2">在线支付</a>
+                                <div className="mod_btns" id="btnPayOnLine" > <a onClick={this.fukuan.bind(this)} className="mod_btn bg_2">在线支付</a>
                                 </div>
                                 <p className="mod_btns_tips" id="zeroOrderTips" style={{display: "none"}}>支付金额为零，无需支付</p>
                                 <div className="buy_notsupport" id="notSup" style={{display: "none"}}>

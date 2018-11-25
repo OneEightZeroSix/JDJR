@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-// import Dtop from '../../components/Dtop/Dtop';
-// import Dlist from '../../components/Dlist/Dlist';
+
 import Dbottom from '../../components/Dbottom/Dbottom';
 import $ from  'jquery';
 
@@ -377,7 +376,7 @@ class Mine extends Component {
                 success: (data)=>{
                     var data=data;
                     this.setState({
-                        edu:data[0].edu+"元"
+                        edu:data[0].quota+"元"
                     })
                 }
             });

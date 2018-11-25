@@ -9,7 +9,7 @@ import Cookie from '../../libs/cookie.js';
 class UploadPic extends Component {
     constructor(props){
         super(props);
-        console.log(this);
+        // console.log(this);
         this.state={
             isShowLayer:false,
             switchClass:true,
@@ -41,7 +41,17 @@ class UploadPic extends Component {
         return  Cookie.getCookie("yonghuming")||[];
     }
 
+
+    /*===============================================*/
+    shezhiCookie(){
+        Cookie.setCookie("yonghuming","111111");
+    }
     
+    qingchuCookie(){
+        Cookie.countdown();
+    } 
+
+    /*===============================================*/
 
     /*设置定时器,点击上传的时候启动*/
     clickUpload(){
@@ -49,9 +59,8 @@ class UploadPic extends Component {
         let len =this.hasCookie().length;
 
         if(len == 0){
-            /*如果不存在cookie,就跳到登录页*/
-            this.props.history.push('/login/');
-            
+            this.props.history.push('/savemoney');
+            console.log("修改路由,变成跳转登录");
         }
         else{
             /*判断上传的图片数量*/
@@ -78,9 +87,9 @@ class UploadPic extends Component {
                             this.setState({
                                 isShowLayer:false  
                             })
-                            /*上传完身份证后,跳转到支付中心,设置支付密码*/
-                            this.props.history.push('/paycenter/');
+                            this.props.history.push("Paycenter");
                             
+                            console.log("跳转其他页面贷款额度的页面");
                         }
                     },30)
                 }
@@ -139,7 +148,7 @@ class UploadPic extends Component {
                         <div className="layer" style={{transformOrigin:"0px 0px 0px", opacity:"1", transform:"scale(1, 1)", display:this.state.isShowLayer?'block':'none'}}>
                             <div className="select-box size18 select-anim">
                                 <div className="select-list">
-                                    <Progress type="circle" percent={this.state.progressNum} />
+                                    <Progress type="circle" style={{color:"#fff"}} percent={this.state.progressNum} />
                                 </div>
                             </div>
                         </div>

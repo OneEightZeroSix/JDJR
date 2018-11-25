@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 
 import './Paycenter.scss';
 
+import { Link } from "react-router-dom";
 
-import Cookie from '../../libs/cookie.js';
+import cookie from '../../libs/cookie.js';
 import {connect} from 'react-redux';
 import $ from 'jquery';
 
@@ -17,6 +18,8 @@ class Paycenter extends Component {
             clearClass:false,
             payClass:false,
             numInputValue:"",
+            edu:0,
+            mima:8
         }
     }
     
@@ -70,30 +73,88 @@ class Paycenter extends Component {
             clearClass:false
         })
         this.refs.nameInput.value="";
-    }
+    } 
 
-    /*获取三个值进行提交,
-    方式一：（把这个贷款金额放入redux,以便lendmoney页面调用，进行减法，得到用户还能贷款多少钱）
-    方式二：（将贷款金额存入数据库，等lendmoney页面请求数据库，得到用户贷款金额，进行相减得到用户还能贷款多少钱）*/
-
+    /*获取三个值进行提交,并把这个值放入redux进行减法*/
     commit(){
+        var yhm=cookie.getCookie("yonghuming") ||[];
+
+        $.ajax({
+            type: "post",
+            data: {
+                username: yhm
+            },
+            url: "http://localhost:3001/login/panduan",
+            async: true,
+            success: (data)=>{
+                this.setState({
+                    edu:Number(data[0].quota)-Number(data[0].jie),
+                    mima:data[0].pay
+                })
+                
+            }
+        });
+
+
         let uname=this.refs.nameInput.value;
         let num=this.refs.numInput.value;
         let pwd=this.refs.pwdInput.value;
+        //验证名字正则
+        if (!/^[\u2E80-\u9FFF]+$/.test(uname)) {
+            alert("请输入正确的名字");
+            return false;
+        };
+        //验证借款金额正则
+        if (!/^[\d]{3,}$/.test(num)) {
+            alert("借款金额请输入大于100的数字");
+            return false;
+        };
         
 
-        //如果选择方式一,dispatch写好的方法：
-            this.setState({
-                    pwdInputValue:num
-            })
-            this.props.setLendNum(num);
-        
-       
+        //因为数据更新缓慢，所以用延时器
+        setTimeout(()=>{
+            
+            //验证支付密码
+            console.log(pwd,this.state.mima);
+            if (pwd!=this.state.mima) {
+                alert("支付密码不正确");
+                return false;
+            };
+            //验证额度
+            if (Number(num)>this.state.edu) {
+                alert("可借额度不足");
+                return false;
+            };
 
-        /*这需要放在三者值不为空的情况下   正则暂时不考虑 */
+
+            $.ajax({
+                type: "post",
+                data: {
+                    username: yhm,
+                    jie:num
+                },
+                url: "http://localhost:3001/login/jiekuan",
+                async: true,
+                success: (data)=>{
+                    // console.log(data);
+                    
+                }
+            });
+
+
+            $("#ad2").css("display","none");
+            $("#ad1").css("display","block");
+        },1400)
+        
+
+        // this.setState({
+        //         pwdInputValue:num
+        // })
+        
+        // this.props.setLendNum(num);
         /*if(uname!== ""  && num !== "" && pwd!== "" ){
     
-            //设置redux用于组件通信,设置贷款金额存到仓库用于lendmoney页面使用
+            //设置redux用于组件通信
             this.setState({
                 pwdInputVaule:num
             })
@@ -114,19 +175,38 @@ class Paycenter extends Component {
                 },
                 success:function(response){
                     // 得到返回的数据结果
-                    //alert("借钱成功");
 
-                    //跳到借钱页面
-                    // this.props.history.push('/lendmoney/');
+                    // 跳到其他页面
                 }
             })
         }*/
     }
 
 
+    // 进入界面判断是否登入
+    panduan(){
+        var yhm=cookie.getCookie("yonghuming")||[];
+        if(yhm.length==0){
+            this.props.history.push("login");
+        }
+    }
+
+
+
+    //借款申请
+    jie(){
+
+    }
+
     render() { 
         return (
-              <div className="paycenter">
+            <div>
+                <Link to="lendmoney" id="ad1" style={{display:"none",textAlign:"center",lineHeight:"50px",color:"#fff",position:"fixed",top:"50%",left:"50%",margin:"-25px 0 0 -100px",height:"50px",width:"200px",background:"#359df5",zIndex:"100"}}>
+                借款成功
+                </Link>
+            
+              <div className="paycenter" id="ad2">
+                
                 <div className="header cl pos-re upheader">
                     <p id="realname-tip" className="basicAttention ft-24px col-999999">
                     请设置借款金额和支付密码
@@ -163,7 +243,11 @@ class Paycenter extends Component {
 
 
               </div>  
+            </div>
         );
+    }
+    componentDidMount (){
+        this.panduan();
     }
     
 }

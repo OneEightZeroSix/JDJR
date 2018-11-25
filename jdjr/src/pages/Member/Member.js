@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
 import { Link } from "react-router-dom";
+import cookie from '../../libs/cookie.js';
+import $ from "jquery";
+
 
 import LocateRoute from '../../libs/locateRoute.js';
 
@@ -60,7 +63,9 @@ class Member extends Component {
                 href: ""
             }],
             tabs:this.props.tabs,
-            uname:""
+            uname:"",
+            yhm:"",
+            jie:0
         }
     }
 
@@ -75,6 +80,32 @@ class Member extends Component {
     }
 
     /*通过cookie获取用户名，放入相应的HTML结构*/
+
+
+    //进入界面获取额度
+    huoqu(){
+        var yhm=cookie.getCookie("yonghuming")||[];
+        this.setState({
+            yhm
+        })
+        //如果登入了 获取借款额度
+        if(yhm.length>0){
+            $.ajax({
+                type: "post",
+                data: {
+                    username: yhm
+                },
+                url: "http://localhost:3001/login/panduan",
+                async: true,
+                success: (data)=>{
+                    this.setState({
+                        jie:data[0].jie
+                    })
+                }
+            });
+        }
+    }
+
 
     render() {
         return (
@@ -91,7 +122,8 @@ class Member extends Component {
                                 <div className="row personal-assets ">
                                     <section className="personal-assets-user" ><img className="header" id="qyy-personal-assets-user-img" src="http://img12.360buyimg.com/jrpmobile/jfs/t2644/238/1420176553/1442/96e2885/573d96deN06201af5.png?width=100&amp;height=100" alt="" />
                                         <div className="info">
-                                            <div className="name" id="qyy-personal-assets-user-name">{this.state.uname}</div><span className="user-pin" id="qyy-personal-assets-user-pin">jd_6cafe92b6922e</span>
+                                            
+                                            <div className="name" style={{marginTop:"0"}} id="qyy-personal-assets-user-name">{this.state.uname}</div><span className="user-pin" id="qyy-personal-assets-user-pin">{this.state.yhm}</span>
                                         </div>
                                         <div className="right"><span style={{color:""}}>会员福利</span><img className="arrow" src="//m.jr.jd.com/spe/qyy/main/images/icon_arrow1.png" alt=""/></div>
                                     </section>
@@ -107,7 +139,16 @@ class Member extends Component {
                                                         <img src={item.src} className="test-lazyload" alt="" /></div>
                                                 </div>
                                                 <div className="info"><span className="name" style={{color:"",lineHeight:"auto"}}>{item.title}</span></div>
-                                                <div className="benifit" id="qyy-benifit" style={{color: index>7? "":"#999999"}}>{item.subTitle}</div>
+                                                <div className="benifit" id="qyy-benifit" style={{color: index>7||index==4? "":"#999999"}}>
+                                                {(()=>{
+                                                    if(item.subTitle=="查看全部产品"){
+                                                        return "已借 "+this.state.jie
+                                                    }else{
+                                                        return item.subTitle
+                                                    }
+                                                })()}
+                                                
+                                                </div>
                                             </div>
                                         )
                                     })
@@ -212,10 +253,10 @@ class Member extends Component {
                                 <Link to={`/mine`} className="J_ping"  ><span className="shortcut-home" style={{background:"url(images/yy4.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>我的京东</strong>
                                 </Link>
                             </li>
-                           {/* <li id="m_common_header_shortcut_h_footprint">
+                            <li id="m_common_header_shortcut_h_footprint">
                                 <Link to={`/home`} className="J_ping" ><span className="shortcut-footprint" style={{background:"url(images/yy5.png) no-repeat center center",backgroundSize:" 15px"}}></span><strong>浏览记录</strong>
                                 </Link>
-                            </li>*/}
+                            </li>
                         </ul>
                     </div>
 
@@ -227,7 +268,7 @@ class Member extends Component {
 
     componentDidMount(){
         LocateRoute.locateRoute(this);
-        
+        this.huoqu();
     }
 }
 

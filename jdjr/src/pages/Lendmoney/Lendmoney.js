@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import $ from  'jquery';
+import cookie from "../../libs/cookie.js";
 import { Link } from "react-router-dom";
 import { Carousel } from 'antd'
 import '../../assets/antd.css'
@@ -27,7 +29,7 @@ class Lendmoney extends Component {
             href:""
           }],
           tabs:this.props.tabs,
-          canBorrow:3000
+          kejie:0
       }
   }
 
@@ -39,19 +41,57 @@ class Lendmoney extends Component {
 
   /*跳转到验证身份页面*/
   goConfrimId(){
-    this.props.history.push('/confrimid');
+    var yhm=cookie.getCookie("yonghuming")||[];
+    if(yhm.length==0){
+        this.props.history.push('/login');
+
+    }else{
+        this.props.history.push('/confrimid');
+    }
   }
 
   goBack(){
     this.props.history.goBack();
   }
   
-  /*说明：canBorrow是剩下可以借的金额*/
+
+
+  //进入界面获取额度
+  huoqu(){
+    var yhm=cookie.getCookie("yonghuming")||[];
+    this.setState({
+        min:yhm
+    })
+    //如果登入了 获取借款额度
+    if(yhm.length>0){
+        $.ajax({
+            type: "post",
+            data: {
+                username: yhm
+            },
+            url: "http://localhost:3001/login/panduan",
+            async: true,
+            success: (data)=>{
+                if((Number(data[0].quota)-Number(data[0].jie))>999){
+                    var kejie=Number(data[0].quota)-Number(data[0].jie)+"";
+                    var qian=kejie.slice(0,kejie.length-3);
+                    var hou=kejie.slice(kejie.length-3);
+                    kejie=qian+","+hou;
+                    this.setState({
+                        kejie
+                    })
+                }else{
+                    this.setState({
+                        kejie:Number(data[0].quota)-Number(data[0].jie)
+                    })
+                }
+                
+            }
+        });
+    }
+  }
   
-  /*选择了paycenter页面的方式1——————————-从仓库拿用户已借金额，与最高额度相减，得到剩余可借多少*/
 
-
-  /*选择了paycenter页面方式2———发送ajaj请求获取当前用户借款金额，与最高额度相减，得到剩余可借多少*/
 
   render() {
     return (
@@ -61,7 +101,7 @@ class Lendmoney extends Component {
           <img src="//m.jr.jd.com/statics/pageLoading/loading.svg" />
         </aside>
         
-        <div id="m_common_header" min-height="40px">
+        <div id="m_common_header" min-height="40px" style={{position:"fixed",top:"0",width:"100%",zIndex:"100"}}>
           <header className="jd-header">
               <div className="jd-header-new-bar">
                   <div  onClick={this.goBack.bind(this)} id="m_common_header_goback" className="jd-header-icon-back J_ping">
@@ -76,7 +116,7 @@ class Lendmoney extends Component {
         </div>
 
 
-        <section className="container mainIn">
+        <section className="container mainIn" style={{marginTop:"40px"}}>
           <div className="addBanner" id="addBanner">
             <img src="//img12.360buyimg.com/jrpmobile/jfs/t19783/355/938803703/27459/b16b944a/5ab0e9d7Na5432129.png?width=1863&amp;height=285" />
           </div>
@@ -84,7 +124,7 @@ class Lendmoney extends Component {
           <section className="jdGoldContainer">
             <div className="jdGold"><img src="https://m.jr.jd.com/vip/borrowMoney/widget/jdGold/i/goldCard.png" />
                 <p className="txt1">最高可借</p>
-                <p className="txt2"><span>¥</span>{this.state.canBorrow}</p>
+                <p className="txt2"><span>¥</span>{this.state.kejie}</p>
                 <p clstag="pageclick|keycount|borrowmoney20180105|jintiao" className="txt3" onClick={this.goConfrimId.bind(this)}>申请开通</p>
             </div>
           </section>
@@ -224,10 +264,10 @@ class Lendmoney extends Component {
                             <Link to={`/mine`} className="J_ping"  ><span className="shortcut-home" style={{background:"url(images/yy4.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>我的京东</strong>
                             </Link>
                         </li>
-                        {/*<li id="m_common_header_shortcut_h_footprint">
+                        <li id="m_common_header_shortcut_h_footprint">
                             <Link to={`/home`} className="J_ping" ><span className="shortcut-footprint" style={{background:"url(images/yy5.png) no-repeat center center",backgroundSize:" 15px"}}></span><strong>浏览记录</strong>
                             </Link>
-                        </li>*/}
+                        </li>
               </ul>
         </div>
         
@@ -239,6 +279,7 @@ class Lendmoney extends Component {
 
   componentDidMount (){
     LocateRoute.locateRoute(this);
+    this.huoqu();
   }
 
 }

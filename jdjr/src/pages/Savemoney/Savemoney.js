@@ -152,9 +152,9 @@ class Savemoney extends Component {
 
     render() {
         return (
-            <div className="savemoney">
-                <div id="m_common_header">
-                    <header className="jd-header">
+            <div className="savemoney" >
+                <div id="m_common_header" >
+                    <header className="jd-header" style={{position:"fixed",top:"0",width:"100%",zIndex:"100"}}>
                         <div className="jd-header-new-bar">
                             <div onClick={this.goBack.bind(this)} id="m_common_header_goback" className="jd-header-icon-back J_ping"><span></span></div>
                             <div className="jd-header-new-title">省钱</div>
@@ -164,7 +164,7 @@ class Savemoney extends Component {
                 </div>
 
                 {/*自己写*/}
-                <div className="l_header">
+                <div className="l_header" style={{marginTop:"45px"}}>
                     <div className="header_left clearfix">
                         <a href="#">
                             <img src="https://img12.360buyimg.com/jrpmobile/jfs/t16843/196/1984070825/24277/685f1ecf/5adda63bN1324e2e9.png?width=210&height=210" width="43px" height="43px" />
@@ -322,10 +322,10 @@ class Savemoney extends Component {
                             <Link to={`/mine`} className="J_ping"  ><span className="shortcut-home" style={{background:"url(images/yy4.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>我的京东</strong>
                             </Link>
                         </li>
-                        {/*<li id="m_common_header_shortcut_h_footprint">
+                        <li id="m_common_header_shortcut_h_footprint">
                             <Link to={`/home`} className="J_ping" ><span className="shortcut-footprint" style={{background:"url(images/yy5.png) no-repeat center center",backgroundSize:" 15px"}}></span><strong>浏览记录</strong>
                             </Link>
-                        </li>*/}
+                        </li>
                     </ul>
                 </div>
 
