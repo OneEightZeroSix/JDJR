@@ -1,0 +1,28 @@
+<div id="pageEditAddress" className="address_new" style={{transform:"translate(0px, 0px)",paddingBottom:"10px"}}>
+    <p><label><span className="tit">收货人</span><input id="name" type="text" placeholder="姓名" />
+        <input type=
+    </label></p>
+    <p className="label_flex"> <label for=""><span className="tit">联系方式</span> <span className="foreign_prefix" id="areaCode"
+                style={{display:"none"}}></span>
+            <input id="mobile" value="156****0290" type="tel" placeholder="手机号码" maxlength="17" /></label> </p>
+    <p className="street_detail selAddr" id="selAddr"> <label><span className="tit">所在地区</span> <input type="text"
+                placeholder="选择所在地区" readonly="readonly" /></label> <i className="arrow"></i> </p>
+    <p className="street_detail" id="adinfoP"> <label><span className="tit">详细地址</span> <textarea placeholder="详细地址需填写楼栋楼层或房间号信息"
+                id="adinfo" value="元岗路379号附近天河慧通产业广场B0门口（峰巢，蜜蜂箱）" rows="2">=</textarea> <i
+                className="close" id="info_clear"></i> </label><span className="btn_complete" id="info_sure">完成</span>
+    </p>
+    
+    <p className="address_tags" id="adlabelP"> <span className="tit">地址标签</span> <span className="address_tags_tag"
+            value="公司">公司</span>
+        <span className="address_tags_tag" value="家">家</span> <span className="address_tags_tag" value="学校">学校</span>
+        <span className="address_tags_tag user_tag"> 自定义<i className="address_tags_close"></i> </span> <span className="address_tags_tag_wrap"
+            style={{display:"none"}}> <span className="address_tags_tag cur" id="userLabelVal"></span> <span className="address_tags_edit"></span>
+        </span> </p>
+    <div className="checkbox_select selected" style={{display:"none"}} id="editAddrSetDef">设为默认地址</div>
+    <div className="fuzzy_search" id="fuzzySearch">
+        <ul className="result_list" id="tenSuggest"></ul>
+    </div>
+    <div className="mod_btns"> <a className>确认</a> </div>
+    <div className="mod_btns"> <a className>删除收货地址</a>
+    </div>
+</div>

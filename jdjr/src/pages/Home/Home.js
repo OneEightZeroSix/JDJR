@@ -11,6 +11,7 @@ import '../../assets/antd.css';
 import '../../assets/swiper.min.css';
 import $ from 'jquery';
 import Swiper from 'swiper';
+import LocateRoute from '../../libs/locateRoute.js';
 
 
 class Home extends Component {
@@ -165,6 +166,9 @@ class Home extends Component {
         })
     }
 
+    goBack(){
+       this.props.history.goBack();
+    }
    /* goTop(){
         var scrollToptimer  = setInterval(function () {
             console.log("定时循环回到顶部")
@@ -180,13 +184,21 @@ class Home extends Component {
             }
         }, 30);
     }*/
-
+    
     showSmallCart(){
         this.setState({
             isShowSmallCart: !this.state.isShowSmallCart
         })
     }
     
+
+    //跳转置顶
+    home(){
+        this.props.history.push("home");
+        document.body.scrollTop=0;
+    }
+
+
     render() {
         let unlogin=(()=>{
             if(this.state.isLogin){
@@ -206,7 +218,7 @@ class Home extends Component {
         })
         return (
             <div className="jHome">
-                <div className="download-app-seize" style={{marginTop: '45px'}}></div>
+                <div className="download-app-seize" style={{marginTop: '-15px'}}></div>
                 <div className="qyy-body qyy">
                     <input type="hidden" id="qyy-data-input"  />
                     <div id="qyy-page-loading" className="page-loading hide">
@@ -215,7 +227,7 @@ class Home extends Component {
                     <div className="wrap-container">
                         <div className="wrap">
 
-                            <div className="section section-36  hasTopPadding hasFloorBottom" style={{background:'#FFFFFF'}}>
+                            {/* <div className="section section-36  hasTopPadding hasFloorBottom" style={{background:'#FFFFFF'}}>
                                 <div className="row jr-header " style={{marginTop: '45px'}}>
                                     <div className="header" >
                                         {
@@ -226,7 +238,7 @@ class Home extends Component {
                                     <div className="download" style={{color:"",background:""}} >APP下载
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
 
                             <div className="section section-0  hasTopPadding noFloorBottom" style={{background:'#131a2d'}}>
                                 <div className="row focus">
@@ -287,7 +299,6 @@ class Home extends Component {
                                         if(this.state.home_data==undefined){
                                             return
                                         }*/
-
                                         return this.state.radioButtons1.map((item,index)=>{
                                             return (
                                                 <div key={index} className="item"  style={{width:'0.251%'}}>
@@ -450,7 +461,7 @@ class Home extends Component {
                                             })
 
                                             return (
-                                                <Link to={`/${item.href}/`} onClick={this.props.skipTo.bind(this,item,index)} key={index} className="item" >
+                                                <Link to={`/${item.href}`} onClick={this.props.skipTo.bind(this,index)} key={index} className="item" >
                                                     <img src={item.src} alt=""/>
                                                     <p className="blue" style={this.props.tab===index ? {color:'#4668FF'}:{color:'#B1B4BB'}}>{item.title}</p>
                                                     {
@@ -473,7 +484,7 @@ class Home extends Component {
                 <div id="m_common_header2" className="m_common_header2">
                     <header className="jd-header">
                         <div className="jd-header-new-bar">
-                            <div  id="m_common_header2_goback" className="jd-header-icon-back J_ping"><span></span></div>
+                            <div  onClick={this.goBack.bind(this)} id="m_common_header2_goback" className="jd-header-icon-back J_ping"><span></span></div>
                             <div className="jd-header-new-title">京东金融</div>
                             <div  id="m_common_header2_jdkey" className="jd-header-icon-new-shortcut J_ping">
                                 <span onClick={this.showSmallCart.bind(this)}></span>
@@ -485,23 +496,23 @@ class Home extends Component {
                 <div id="header-shortcut-ul">
                     <ul id="m_common_header_shortcut" className="jd-header-vertical-shortcut" style={{display:this.state.isShowSmallCart? 'block':'none'}}>
                         <li id="m_common_header_shortcut_m_index">
-                            <Link to={`/home/`} className="J_ping" ><span className="shortcut-index" style={{background:"url(images/yy1.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>首页</strong>
+                            <Link to={`/home`} className="J_ping" ><span className="shortcut-index" style={{background:"url(images/yy1.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>首页</strong>
                             </Link>
                         </li>
                         <li id="m_common_header_shortcut_category_search">
-                            <Link to={`/classify/`} className="J_ping" ><span className="shortcut-search" style={{background:"url(images/yy2.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>分类搜索</strong>
+                            <Link to={`/classify`} className="J_ping" ><span className="shortcut-search" style={{background:"url(images/yy2.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>分类搜索</strong>
                             </Link>
                         </li>
                         <li id="m_common_header_shortcut_p_cart">
-                            <Link to={`/cart/`} className="J_ping" ><span className="shortcut-cart" style={{background:"url(images/yy3.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>购物车</strong>
+                            <Link to={`/cart`} className="J_ping" ><span className="shortcut-cart" style={{background:"url(images/yy3.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>购物车</strong>
                             </Link>
                         </li>
                         <li id="m_common_header_shortcut_h_home">
-                            <Link to={`/mine/`} className="J_ping"  ><span className="shortcut-home" style={{background:"url(images/yy4.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>我的京东</strong>
+                            <Link to={`/mine`} className="J_ping"  ><span className="shortcut-home" style={{background:"url(images/yy4.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>我的京东</strong>
                             </Link>
                         </li>
                         <li id="m_common_header_shortcut_h_footprint">
-                            <Link to={`/home/`} className="J_ping" ><span className="shortcut-footprint" style={{background:"url(images/yy5.png) no-repeat center center",backgroundSize:" 15px"}}></span><strong>浏览记录</strong>
+                            <Link to={`/home`} className="J_ping" ><span className="shortcut-footprint" style={{background:"url(images/yy5.png) no-repeat center center",backgroundSize:" 15px"}}></span><strong>浏览记录</strong>
                             </Link>
                         </li>
                     </ul>
@@ -511,7 +522,8 @@ class Home extends Component {
         );
     }
     componentDidMount (){
-        this.init()
+        this.init();
+        LocateRoute.locateRoute(this);
     }
 }
 
@@ -519,7 +531,7 @@ export default connect((state)=>{
     return state;
 },(dispatch)=>{
     return {
-        skipTo(item,index){
+        skipTo(index){
             dispatch({
                 type:"skipTo",
                 tab:index

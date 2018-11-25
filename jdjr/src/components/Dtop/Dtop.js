@@ -1,7 +1,7 @@
-import React, {
-    Component
-} from 'react'
+import React, {Component} from 'react';
+
 import cookie from "../../libs/cookie.js";
+import { Link } from "react-router-dom";
 
 import '../../assets/css/search.css';
 import ad1 from '../../assets/images/ad1.png';
@@ -69,8 +69,7 @@ export class Dtop extends Component {
                         <div className="m_cc_header_inner">
                             <header className="jd-header">
                                 <div className="jd-header-new-bar">
-                                    <div id="msCancelBtn" report-eventid="MCommonHead_Back" report-eventparam="https://so.m.jd.com/webportal/channel/m_category"
-                                        className="jd-header-icon-back J_ping" style={{display: "block"}}><span></span></div>
+                                    <Link to="home" id="msCancelBtn" className="jd-header-icon-back J_ping" style={{display: "block"}}><span></span></Link>
                                     <div className="jd-header-new-title"></div>
                                     <div id="msShortcutLogin" className="jd-header-icon-new-shortcut-text J_ping" style={{display:"none"}}><span>登录</span></div>
                                     <div onClick={this.show.bind(this)} id="msShortcutMenu" report-eventid="MCommonHead_NavigateButton" report-eventparam="https://so.m.jd.com/webportal/channel/m_category"

@@ -198,6 +198,17 @@ class Cart extends Component {
         $(e).remove();
     }
 
+
+    //去结算
+    jiesuan(){
+        if(this.state.zong==0){
+            alert("购物车没有商品，前去选购");
+            this.props.history.push("sort");
+            return false;
+        }
+        this.props.history.push("order");
+    }
+
     render() {
         return (
             <div >
@@ -283,8 +294,8 @@ class Cart extends Component {
                     <div className="fixBar" name="checkgroup" id="fixBarBot">
                         <i className="icon_select" attr-chktye="1" attr-tag="iconChkEve" ptag="7014.3.1">全选</i>
                         <div className="total" id="totalConfirmDiv">
-                            <p>总计：<strong id="totalPrice">{this.state.zong}</strong><small><span id="totalBackMoney">总额¥{this.state.zong} 立减¥0.00</span></small></p><a
-                                className="buy buyJs disabled" attr-tag="confirmEve">去结算({this.state.jianshu}件)</a>
+                            <p>总计：<strong id="totalPrice">{this.state.zong}</strong><small><span id="totalBackMoney">总额¥{this.state.zong} 立减¥0.00</span></small></p><div
+                                onClick={this.jiesuan.bind(this)} className="buy buyJs disabled" attr-tag="confirmEve">去结算({this.state.jianshu}件)</div>
                         </div>
                         
                         

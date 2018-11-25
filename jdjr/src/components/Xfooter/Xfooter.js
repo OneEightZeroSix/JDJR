@@ -38,6 +38,7 @@ class Xfooter extends Component {
         }
     }
     toggleTab(index){
+        // document.body.scrollTop=0;
         this.setState({
             tab:index
         })
@@ -60,7 +61,7 @@ class Xfooter extends Component {
                             })
 
                             return (
-                                <Link to={`/${item.href}/`} onClick={this.toggleTab.bind(this,index)} key={index} className="item"  data-qyy-eredid="0" data-qyy-eid="33340" jrmsc="on" data-qyy-click="" clstag="pageclick|keycount|Qing_67_4796|7674_33340|null" data-qyy-cardpageinfos="" data-qyy-ejumptype="1" data-qyy-jumpt="https://m.jr.jd.com/spe/qyy/main/index.html?userType=67&amp;sid=">
+                                <Link to={`/${item.href}`} onClick={this.toggleTab.bind(this,index)} key={index} className="item"  data-qyy-eredid="0" data-qyy-eid="33340" jrmsc="on" data-qyy-click="" clstag="pageclick|keycount|Qing_67_4796|7674_33340|null" data-qyy-cardpageinfos="" data-qyy-ejumptype="1" data-qyy-jumpt="https://m.jr.jd.com/spe/qyy/main/index.html?userType=67&amp;sid=">
                                     <img src={item.src} alt=""/>
                                     <p className="blue" style={this.state.tab===index ? {color:'#4668FF'}:{color:'#B1B4BB'}}>{item.title}</p>
                                     {

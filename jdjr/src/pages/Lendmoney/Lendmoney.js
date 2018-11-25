@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Carousel } from 'antd'
 import '../../assets/antd.css'
 import './Lendmoney.scss';
-
+import LocateRoute from '../../libs/locateRoute.js';
 
 
 
@@ -38,9 +38,13 @@ class Lendmoney extends Component {
 
   /*跳转到验证身份页面*/
   goConfrimId(){
-      this.props.history.push('/confrimid/');
+    this.props.history.push('/confrimid');
   }
 
+  goBack(){
+    this.props.history.goBack();
+  }
+  
   render() {
     return (
       
@@ -52,7 +56,7 @@ class Lendmoney extends Component {
         <div id="m_common_header" min-height="40px">
           <header className="jd-header">
               <div className="jd-header-new-bar">
-                  <div id="m_common_header_goback" className="jd-header-icon-back J_ping">
+                  <div  onClick={this.goBack.bind(this)} id="m_common_header_goback" className="jd-header-icon-back J_ping">
                       <span></span>
                   </div>
                   <div className="jd-header-new-title">借钱</div>
@@ -182,7 +186,7 @@ class Lendmoney extends Component {
                   {(()=>{
                         return this.state.tabs.map((item,index)=>{
                           return (
-                            <Link to={`/${item.href}/`} onClick={this.props.skipTo.bind(this,item,index)}  key={index} className="item"><img src={item.src} className="user-img" alt="" />
+                            <Link to={`/${item.href}`} onClick={this.props.skipTo.bind(this,index)}  key={index} className="item"><img src={item.src} className="user-img" alt="" />
                               <p className="blue" style={this.props.tab===index?{color:"#4668FF"}:{color:"#B1B4BB"}}>{item.title}</p>
                             </Link>
                           )
@@ -197,23 +201,23 @@ class Lendmoney extends Component {
         <div id="header-shortcut-ul">
               <ul id="m_common_header_shortcut" className="jd-header-vertical-shortcut" style={{display:this.state.isShowSmallCart? 'block':'none'}}>
                         <li id="m_common_header_shortcut_m_index">
-                            <Link to={`/home/`} className="J_ping" ><span className="shortcut-index" style={{background:"url(images/yy1.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>首页</strong>
+                            <Link to={`/home`} className="J_ping" ><span className="shortcut-index" style={{background:"url(images/yy1.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>首页</strong>
                             </Link>
                         </li>
                         <li id="m_common_header_shortcut_category_search">
-                            <Link to={`/classify/`} className="J_ping" ><span className="shortcut-search" style={{background:"url(images/yy2.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>分类搜索</strong>
+                            <Link to={`/classify`} className="J_ping" ><span className="shortcut-search" style={{background:"url(images/yy2.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>分类搜索</strong>
                             </Link>
                         </li>
                         <li id="m_common_header_shortcut_p_cart">
-                            <Link to={`/cart/`} className="J_ping" ><span className="shortcut-cart" style={{background:"url(images/yy3.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>购物车</strong>
+                            <Link to={`/cart`} className="J_ping" ><span className="shortcut-cart" style={{background:"url(images/yy3.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>购物车</strong>
                             </Link>
                         </li>
                         <li id="m_common_header_shortcut_h_home">
-                            <Link to={`/mine/`} className="J_ping"  ><span className="shortcut-home" style={{background:"url(images/yy4.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>我的京东</strong>
+                            <Link to={`/mine`} className="J_ping"  ><span className="shortcut-home" style={{background:"url(images/yy4.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>我的京东</strong>
                             </Link>
                         </li>
                         <li id="m_common_header_shortcut_h_footprint">
-                            <Link to={`/home/`} className="J_ping" ><span className="shortcut-footprint" style={{background:"url(images/yy5.png) no-repeat center center",backgroundSize:" 15px"}}></span><strong>浏览记录</strong>
+                            <Link to={`/home`} className="J_ping" ><span className="shortcut-footprint" style={{background:"url(images/yy5.png) no-repeat center center",backgroundSize:" 15px"}}></span><strong>浏览记录</strong>
                             </Link>
                         </li>
               </ul>
@@ -225,9 +229,10 @@ class Lendmoney extends Component {
   }
 
 
-//   componentDidMount (){
-//     this.init()
-//   }
+  componentDidMount (){
+    LocateRoute.locateRoute(this);
+  }
+
 }
 
 
@@ -236,7 +241,7 @@ export default connect((state)=>{
     return state;
 },(dispatch)=>{
     return {
-        skipTo(item,index){
+        skipTo(index){
             dispatch({
                 type:"skipTo",
                 tab:index

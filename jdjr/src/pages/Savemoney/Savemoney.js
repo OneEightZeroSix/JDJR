@@ -2,9 +2,17 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
 import { Link } from "react-router-dom";
-
+import $ from "jquery";
 import './Savemoney.scss';
 import { Carousel } from 'antd';
+
+import Cookie from "../../libs/cookie.js";
+import LocateRoute from '../../libs/locateRoute.js';
+
+import ad6 from "../../assets/images/ad6.jpg";
+import ad7 from "../../assets/images/ad7.jpg";
+import ad8 from "../../assets/images/ad8.png";
+
 
 class Savemoney extends Component {
     constructor(props){
@@ -13,6 +21,9 @@ class Savemoney extends Component {
             isShowSmallCart:false,
             isShowMyLayer:false,
             showQuan:"",
+            isAnimate:false,
+            max:0,
+            min:0,
             qiandao:[{
                 title:"任务",
                 num:0,
@@ -49,18 +60,21 @@ class Savemoney extends Component {
             }],
             tabs:this.props.tabs,
             coupon:[{
-                num:5,
-                src:"https://img12.360buyimg.com/jrpmobile/jfs/t22930/284/1784613456/150994/5523cb69/5b697d61Nf7756ac1.png?width=750&height=480",
+                max:10,
+                min:5,
+                src:ad6,
+                // src:"https://img12.360buyimg.com/jrpmobile/jfs/t22930/284/1784613456/150994/5523cb69/5b697d61Nf7756ac1.png?width=750&height=480",
                 href:""
             },{
-                num:99,
-                src:"https://img12.360buyimg.com/jrpmobile/jfs/t16630/362/2707031119/15173/aa5acde3/5b03d5c7Nccffa23f.jpg?width=750&height=480",
+                max:100,
+                min:99,
+                src:ad7,
+                // src:"https://img12.360buyimg.com/jrpmobile/jfs/t16630/362/2707031119/15173/aa5acde3/5b03d5c7Nccffa23f.jpg?width=750&height=480",
                 href:""
             }],
             getQuanNum:0
         }
     }
-
 
     showSmallCart(){
         this.setState({
@@ -69,13 +83,13 @@ class Savemoney extends Component {
     }
 
 
-    /*获取优惠券*/
+    /*点击优惠券*/
     getQuan(item){
         this.setState({
-            isShowMyLayer:true
-        })
-        this.setState({
-            showQuan:item.src
+            isShowMyLayer:true,
+            showQuan:item.src,
+            max:item.max,
+            min:item.min
         })
         
     }
@@ -90,11 +104,51 @@ class Savemoney extends Component {
     
     /*真正获取优惠券*/
     realGetQuan(){
-        this.setState({
-            isShowMyLayer:false
-        })
+        
+        let cookies=Cookie.getCookie("yonghuming")||[];
+        let len = cookies.length;
+
+        if(len == 0){
+            window.location.href="http://localhost:3000/#/login";
+            // this.props.history.push("login");
+            console.log("修改路由,变成跳转登录");
+        }else{
+            /*发送ajax,将优惠券金额插入数据库*/
+
+             $.ajax({
+                type:"POST",
+                url:"http://localhost:3001/coupon/tianjia",
+                data:{
+                    yhm:cookies,
+                    max:this.state.max,
+                    min:this.state.min
+                },
+                success:function(response){
+                    // 插入数据库返回的信息
+                }
+            })
+            
+
+            this.setState({
+                isAnimate:true,
+                getQuanNum:this.state.getQuanNum+1
+            })
+
+            let timer=setInterval(()=>{
+                this.setState({
+                    isAnimate:false,
+                    isShowMyLayer:false
+                })
+                clearInterval(timer);
+            },1000)
+        }      
     }
 
+
+    /*返回上一页*/
+    goBack(){
+       this.props.history.goBack();
+    }
 
     render() {
         return (
@@ -102,9 +156,9 @@ class Savemoney extends Component {
                 <div id="m_common_header">
                     <header className="jd-header">
                         <div className="jd-header-new-bar">
-                            <div report-eventid="MCommonHead_Back" report-eventparam="https://active.jd.com/forever/saveMoney/1.0.0/#/indexPage" id="m_common_header_goback" className="jd-header-icon-back J_ping"><span></span></div>
+                            <div onClick={this.goBack.bind(this)} id="m_common_header_goback" className="jd-header-icon-back J_ping"><span></span></div>
                             <div className="jd-header-new-title">省钱</div>
-                            <div report-eventid="MCommonHead_NavigateButton" report-eventparam="https://active.jd.com/forever/saveMoney/1.0.0/#/indexPage" id="m_common_header_jdkey" className="jd-header-icon-new-shortcut J_ping"><span onClick={this.showSmallCart.bind(this)}></span></div>
+                            <div  id="m_common_header_jdkey" className="jd-header-icon-new-shortcut J_ping"><span onClick={this.showSmallCart.bind(this)}></span></div>
                         </div>
                     </header>
                 </div>
@@ -125,7 +179,7 @@ class Savemoney extends Component {
                         </ul>
                     </div>
                     <div className="header_right">
-                        <a href="#"><img src="./images/01.png" width="60px" height="55px"/></a>
+                        <a href="#"><img src={ad8} width="60px" height="55px"/></a>
                     </div>
                 </div>
 
@@ -158,13 +212,13 @@ class Savemoney extends Component {
 
                 
                 <div className="youhui">
-                    <ul className="clearfix">
+                    <ul className="clearfix" style={{background:"#fff"}}>
 
                         {(()=>{
                             return this.state.coupon.map((item,index)=>{
                                 return (
                                     <li key={index}  onClick={this.getQuan.bind(this,item)}>
-                                        <a href="javascript:;"><img src={item.src} width="160px" height="102px"/></a>
+                                        <a href="javascript:;"><img src={item.src} width="160px" height="80px"/></a>
                                     </li>
                                 )
                             })
@@ -187,18 +241,18 @@ class Savemoney extends Component {
                                 </div>
                                 <div className=" row whole-banner ">
                                     <div className=" img-wrap bg-none min-height-0">
-                                        <img src="https://img12.360buyimg.com/jrpmobile/jfs/t20125/139/377044579/41214/51a08cb6/5b0b947bN916e62ee.jpg?width=1500&amp;height=442" className="test-lazyload" alt="" jrmsc="on" data-qyy-click="" clstag="pageclick|keycount|Qing_1209_4859|7768_33930|null" data-qyy-cardpageinfos="" data-qyy-ejumptype="1" data-qyy-jumpt="https://home.jdpay.com/my/woolParty?from=sqbanner&amp;sid=" />
+                                        <img src="https://img12.360buyimg.com/jrpmobile/jfs/t20125/139/377044579/41214/51a08cb6/5b0b947bN916e62ee.jpg?width=1500&amp;height=442" className="test-lazyload" alt=""  />
                                     </div>
                                 </div>
                                 <div className="row row-197 threeImg ">
                                     <div className="item-wrap">
-                                        <div className="item" jrmsc="on" data-qyy-click="" clstag="pageclick|keycount|Qing_1209_4859|7837_34097|null" data-qyy-cardpageinfos="" data-qyy-ejumptype="1" data-qyy-jumpt="https://home.jdpay.com/my/couponmall/shop/index?from=sqbanner" style={{background:""}}><img className="item-img" src="https://img12.360buyimg.com/jrpmobile/jfs/t28342/281/144513453/24267/4b82f4f3/5be91415Nbbb51d03.png?width=335&amp;height=420" alt="" /></div>
+                                        <div className="item"  style={{background:""}}><img className="item-img" src="https://img12.360buyimg.com/jrpmobile/jfs/t28342/281/144513453/24267/4b82f4f3/5be91415Nbbb51d03.png?width=335&amp;height=420" alt="" /></div>
                                     </div>
                                     <div className="item-wrap">
-                                        <div className="item" jrmsc="on" data-qyy-click="" clstag="pageclick|keycount|Qing_1209_4859|7837_34098|null" data-qyy-cardpageinfos="" data-qyy-ejumptype="1" data-qyy-jumpt="https://m.jr.jd.com/zc/drawSystem/hb/index.html?contentParam=100001079&amp;act=1&amp;actCode=03D00D911E&amp;actType=1" style={{background:""}}><img className="item-img" src="https://img12.360buyimg.com/jrpmobile/jfs/t27631/208/1513930801/9151/55693fb9/5be4fb0bN15c07ec1.png?width=335&amp;height=210" alt="" /></div>
+                                        <div className="item"  style={{background:""}}><img className="item-img" src="https://img12.360buyimg.com/jrpmobile/jfs/t27631/208/1513930801/9151/55693fb9/5be4fb0bN15c07ec1.png?width=335&amp;height=210" alt="" /></div>
                                     </div>
                                     <div className="item-wrap">
-                                        <div className="item" jrmsc="on" data-qyy-click="" clstag="pageclick|keycount|Qing_1209_4859|7837_34099|null" data-qyy-cardpageinfos="" data-qyy-ejumptype="1" data-qyy-jumpt="https://pro.m.jd.com/mall/active/98iv4M2xGRbaXGXp1zHg9u74yRm/index.html" style={{background:""}}><img className="item-img" src="https://img12.360buyimg.com/jrpmobile/jfs/t24757/94/2422816066/11630/c31c4bfb/5be4f719N75983e83.png?width=335&amp;height=210" alt="" /></div>
+                                        <div className="item"  style={{background:""}}><img className="item-img" src="https://img12.360buyimg.com/jrpmobile/jfs/t24757/94/2422816066/11630/c31c4bfb/5be4f719N75983e83.png?width=335&amp;height=210" alt="" /></div>
                                     </div>
                                 </div>
                             </div>
@@ -237,7 +291,7 @@ class Savemoney extends Component {
                                     {(()=>{
                                         return this.state.tabs.map((item,index)=>{
                                             return (
-                                                <Link to={`/${item.href}/`} onClick={this.props.skipTo.bind(this,item,index)}  key={index} className="item" data-qyy-eredid="0" data-qyy-eid="34262" jrmsc="on" data-qyy-click="" clstag="pageclick|keycount|Qing_1209_4945|7910_34262|null" data-qyy-cardpageinfos="" data-qyy-ejumptype="1" data-qyy-jumpt="https://m.jr.jd.com/spe/qyy/main/index.html?userType=67&amp;sid="><img src={item.src} className="user-img" alt="" />
+                                                <Link to={`/${item.href}`} onClick={this.props.skipTo.bind(this,index)}  key={index} className="item" data-qyy-eredid="0" data-qyy-eid="34262" jrmsc="on" data-qyy-click="" clstag="pageclick|keycount|Qing_1209_4945|7910_34262|null" data-qyy-cardpageinfos="" data-qyy-ejumptype="1" data-qyy-jumpt="https://m.jr.jd.com/spe/qyy/main/index.html?userType=67&amp;sid="><img src={item.src} className="user-img" alt="" />
                                                     <p className="blue" style={this.props.tab===index?{color:"#4668FF"}:{color:"#B1B4BB"}}>{item.title}</p>
                                                 </Link>
                                             )
@@ -253,39 +307,46 @@ class Savemoney extends Component {
                 <div id="header-shortcut-ul">
                     <ul id="m_common_header_shortcut" className="jd-header-vertical-shortcut" style={{display:this.state.isShowSmallCart? 'block':'none'}}>
                         <li id="m_common_header_shortcut_m_index">
-                            <Link to={`/home/`} className="J_ping" ><span className="shortcut-index" style={{background:"url(images/yy1.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>首页</strong>
+                            <Link to={`/home`} className="J_ping" ><span className="shortcut-index" style={{background:"url(images/yy1.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>首页</strong>
                             </Link>
                         </li>
                         <li id="m_common_header_shortcut_category_search">
-                            <Link to={`/classify/`} className="J_ping" ><span className="shortcut-search" style={{background:"url(images/yy2.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>分类搜索</strong>
+                            <Link to={`/classify`} className="J_ping" ><span className="shortcut-search" style={{background:"url(images/yy2.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>分类搜索</strong>
                             </Link>
                         </li>
                         <li id="m_common_header_shortcut_p_cart">
-                            <Link to={`/cart/`} className="J_ping" ><span className="shortcut-cart" style={{background:"url(images/yy3.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>购物车</strong>
+                            <Link to={`/cart`} className="J_ping" ><span className="shortcut-cart" style={{background:"url(images/yy3.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>购物车</strong>
                             </Link>
                         </li>
                         <li id="m_common_header_shortcut_h_home">
-                            <Link to={`/mine/`} className="J_ping"  ><span className="shortcut-home" style={{background:"url(images/yy4.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>我的京东</strong>
+                            <Link to={`/mine`} className="J_ping"  ><span className="shortcut-home" style={{background:"url(images/yy4.png) no-repeat center center",backgroundSize:"15px"}}></span><strong>我的京东</strong>
                             </Link>
                         </li>
                         <li id="m_common_header_shortcut_h_footprint">
-                            <Link to={`/home/`} className="J_ping" ><span className="shortcut-footprint" style={{background:"url(images/yy5.png) no-repeat center center",backgroundSize:" 15px"}}></span><strong>浏览记录</strong>
+                            <Link to={`/home`} className="J_ping" ><span className="shortcut-footprint" style={{background:"url(images/yy5.png) no-repeat center center",backgroundSize:" 15px"}}></span><strong>浏览记录</strong>
                             </Link>
                         </li>
                     </ul>
                 </div>
 
                 <div className="mylayer"  style={{transformOrigin:"0px 0px 0px", opacity:"1", transform:"scale(1, 1)", display:this.state.isShowMyLayer? 'block':'none'}}>
-                    <div className="mylayerBox1" onClick={this.realGetQuan.bind(this)}>
-                        <img src={this.state.showQuan} />
+                    <div className="mylayerAll" style={{WebkitAnimation:this.state.isAnimate? 'myfirst 1s':''}}>
+                        <div className="mylayerBox1" onClick={this.realGetQuan.bind(this)}>
+                            <img src={this.state.showQuan} />
+                        </div>
+                        <div className="mylayerBox2" >
+                            <img src="https://mjr.jd.com/spe/smrz/img/clear.png"  onClick={this.calcelQuan.bind(this)}/>
+                        </div>
                     </div>
-                    <div className="mylayerBox2">
-                        <img src="https://mjr.jd.com/spe/smrz/img/clear.png"  onClick={this.calcelQuan.bind(this)}/>
+                    <div className="tips" >☺恭喜你,领取成功!
                     </div>
                 </div>
 
             </div>
         );
+    }
+    componentDidMount (){
+        LocateRoute.locateRoute(this);
     }
 }
 
@@ -293,7 +354,7 @@ export default connect((state)=>{
     return state;
 },(dispatch)=>{
     return {
-        skipTo(item,index){
+        skipTo(index){
             dispatch({
                 type:"skipTo",
                 tab:index
